@@ -1,0 +1,5 @@
+eureka-server:  8761
+gateway-server: 8762
+
+
+user-service:   9000
