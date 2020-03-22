@@ -3,3 +3,4 @@ gateway-server: 8762
 
 
 user-service:   9000
+auth-service:   9010
