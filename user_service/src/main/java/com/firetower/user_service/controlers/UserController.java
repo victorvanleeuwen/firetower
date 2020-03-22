@@ -27,4 +27,10 @@ public class UserController {
     User getUserById(@RequestParam("id") Long id) {
         return service.UserById(id);
     }
+
+    @RequestMapping(value = RestURIConstant.protectedtest, method = RequestMethod.GET)
+    public @ResponseBody
+    String test() {
+        return "Hello there";
+    }
 }
