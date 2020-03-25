@@ -1,6 +1,7 @@
 package com.firetower.user_service.repositories;
 
-import com.firetower.user_service.models.User;
+
+import com.firetower.common.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,4 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends CrudRepository<User,Long> {
 
     User findUserById (Long Id);
+    User findUserByEmail (String Email);
 }

@@ -1,7 +1,8 @@
 package com.firetower.user_service.controlers;
 
-import com.firetower.user_service.models.User;
+import com.firetower.common.User;
 import com.firetower.user_service.services.UserService;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,5 +33,17 @@ public class UserController {
     public @ResponseBody
     String test() {
         return "Hello there";
+    }
+
+    @RequestMapping(value = RestURIConstant.currentUser, method = RequestMethod.GET)
+    public @ResponseBody
+    User current(Authentication authentication) {
+        System.out.println(authentication);
+        return null;
+    }
+
+    @RequestMapping(value = RestURIConstant.userByEmail, method = RequestMethod.GET)
+    public @ResponseBody User getUserByCode(@RequestParam("email") String email){
+        return service.UserByEmail(email);
     }
 }

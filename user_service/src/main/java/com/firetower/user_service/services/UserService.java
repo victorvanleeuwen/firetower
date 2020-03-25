@@ -1,7 +1,7 @@
 package com.firetower.user_service.services;
 
 
-import com.firetower.user_service.models.User;
+import com.firetower.common.User;
 import com.firetower.user_service.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -22,4 +22,6 @@ public class UserService {
     public User UserById(Long id){
         return userRepository.findUserById(id);
     }
+
+    public User UserByEmail(String email){return userRepository.findUserByEmail(email);}
 }
