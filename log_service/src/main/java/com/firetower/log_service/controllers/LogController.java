@@ -3,10 +3,7 @@ package com.firetower.log_service.controllers;
 import com.firetower.common.Log;
 import com.firetower.log_service.services.LogService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class LogController {
@@ -34,4 +31,9 @@ public class LogController {
     public @ResponseBody Iterable<Log> getLogByUser(@RequestParam("id") Long id){
         return logService.findLogsByServer(id);
     }
+    @RequestMapping(value = RestURIConstant.newLog, method = RequestMethod.POST)
+    public @ResponseBody Log newLog(@RequestBody Log log){
+        return logService.newLog(log);
+    }
+
 }

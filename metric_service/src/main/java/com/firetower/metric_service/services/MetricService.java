@@ -26,7 +26,8 @@ public class MetricService {
         return metricRepository.findMetricById(id);
     }
 
-    public void newMetric(Metric metric){
-        metricRepository.save(metric);
+    public Metric newMetric(Metric metric){
+          return metricRepository.save(metric);
     }
+
 }

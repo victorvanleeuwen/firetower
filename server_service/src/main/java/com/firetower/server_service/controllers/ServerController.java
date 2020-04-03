@@ -1,13 +1,11 @@
 package com.firetower.server_service.controllers;
 
 import com.firetower.common.Server;
+import com.firetower.common.User;
 import com.firetower.server_service.service.ServerService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class ServerController {
@@ -28,9 +26,15 @@ public class ServerController {
     public @ResponseBody Server getUserByCode(@RequestParam("id") Long id){
         return serverService.findServerById(id);
     }
+
     @RequestMapping(value = RestUriConstant.byCompany, method = RequestMethod.GET)
     public @ResponseBody Iterable<Server> getServerByUser(@RequestParam("id") Long id){
         return serverService.findServersByUser(id);
     }
+    @RequestMapping(value = RestUriConstant.newServer, method = RequestMethod.POST)
+    public @ResponseBody Server newServer(@RequestBody Server server){
+        return serverService.newServer(server);
+    }
+
 
 }

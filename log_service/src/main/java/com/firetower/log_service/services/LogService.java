@@ -26,8 +26,8 @@ public class LogService {
         return logRepository.findLogById(id);
     }
 
-    public void newLog(Log Log){
-        logRepository.save(Log);
+    public Log newLog(Log Log){
+         return logRepository.save(Log);
     }
 
 }

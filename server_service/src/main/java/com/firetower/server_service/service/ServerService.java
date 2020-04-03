@@ -27,7 +27,7 @@ public class ServerService {
         return serverRepository.findServerById(Id);
     }
 
-    public void newServer(Server server){
-        serverRepository.save(server);
+    public Server newServer(Server server){
+         return serverRepository.save(server);
     }
 }
