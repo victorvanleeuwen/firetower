@@ -1,24 +1,32 @@
 package com.firetower.data_generator;
 
-import com.firetower.common.Server;
-import com.firetower.common.User;
 import com.firetower.data_generator.services.CycleService;
-import com.firetower.data_generator.services.GeneratorService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
 
 @SpringBootApplication
+@EnableEurekaClient
 public class DataGeneratorApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(DataGeneratorApplication.class, args);
 
+    }
+    @Configuration
+    class RestTemplateConfig {
+        @Bean
+        @LoadBalanced
+        public RestTemplate restTemplate() {
+            return new RestTemplate();
+        }
     }
 
     @Bean

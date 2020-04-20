@@ -1,7 +1,7 @@
 package com.firetower.gateway_server;
 
-import com.firetower.common.security.CustomGrantedAuthority;
-import com.firetower.common.security.JwtConfig;
+import com.firetower.gateway_server.common.security.CustomGrantedAuthority;
+import com.firetower.gateway_server.common.security.JwtConfig;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

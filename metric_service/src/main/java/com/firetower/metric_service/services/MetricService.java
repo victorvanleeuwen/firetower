@@ -1,7 +1,6 @@
 package com.firetower.metric_service.services;
 
-import com.firetower.common.Metric;
-import com.firetower.common.Server;
+import com.firetower.metric_service.common.models.Metric;
 import com.firetower.metric_service.repositories.MetricRepository;
 import org.springframework.stereotype.Service;
 

@@ -1,13 +1,13 @@
 package com.firetower.user_service.controlers;
 
-import com.firetower.common.User;
+import com.firetower.user_service.common.models.User;
 import com.firetower.user_service.services.UserService;
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -45,5 +45,15 @@ public class UserController {
     @RequestMapping(value = RestURIConstant.userByEmail, method = RequestMethod.GET)
     public @ResponseBody User getUserByCode(@RequestParam("email") String email){
         return service.UserByEmail(email);
+    }
+
+    @RequestMapping(value =RestURIConstant.newUsers ,method = RequestMethod.POST)
+    public void newUsers(@RequestBody List<User> users){
+        service.newUsers(users);
+    }
+
+    @RequestMapping(value = RestURIConstant.generate,method = RequestMethod.GET)
+    public @ResponseBody Iterable<User> generateUsers(@RequestParam("amount") int amount)  throws IOException {
+             return service.generateUsers(amount);
     }
 }

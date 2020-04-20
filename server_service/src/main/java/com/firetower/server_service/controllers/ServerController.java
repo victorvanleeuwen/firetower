@@ -1,11 +1,12 @@
 package com.firetower.server_service.controllers;
 
-import com.firetower.common.Server;
-import com.firetower.common.User;
+import com.firetower.server_service.common.models.Server;
 import com.firetower.server_service.service.ServerService;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+import java.util.List;
 
 @Controller
 public class ServerController {
@@ -35,6 +36,18 @@ public class ServerController {
     public @ResponseBody Server newServer(@RequestBody Server server){
         return serverService.newServer(server);
     }
+
+    @RequestMapping(value = RestUriConstant.newServers, method = RequestMethod.POST)
+    public void newSevers(@RequestBody List<Server> servers){
+        serverService.newServers(servers);
+    }
+
+    @RequestMapping(value = RestUriConstant.generateServers,method = RequestMethod.GET)
+    public void generateServers(@RequestParam("id") Long id,@RequestParam("amount") int amount) throws IOException {
+        serverService.generateServers(id,amount);
+    }
+
+
 
 
 }

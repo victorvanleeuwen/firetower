@@ -1,6 +1,6 @@
 package com.firetower.metric_service.controllers;
 
-import com.firetower.common.Metric;
+import com.firetower.metric_service.common.models.Metric;
 import com.firetower.metric_service.services.MetricService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

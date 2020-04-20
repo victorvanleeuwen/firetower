@@ -9,3 +9,4 @@ common-service: 9020
 server-service: 9030
 log-service:    9040
 metric-service: 9050
+data-generator: 9060

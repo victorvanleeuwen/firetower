@@ -1,6 +1,6 @@
 package com.firetower.metric_service.repositories;
 
-import com.firetower.common.Metric;
+import com.firetower.metric_service.common.models.Metric;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

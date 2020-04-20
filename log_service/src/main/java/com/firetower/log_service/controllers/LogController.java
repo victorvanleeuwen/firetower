@@ -1,6 +1,6 @@
 package com.firetower.log_service.controllers;
 
-import com.firetower.common.Log;
+import com.firetower.log_service.common.models.Log;
 import com.firetower.log_service.services.LogService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

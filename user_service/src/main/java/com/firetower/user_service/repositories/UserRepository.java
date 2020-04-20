@@ -1,7 +1,7 @@
 package com.firetower.user_service.repositories;
 
 
-import com.firetower.common.User;
+import com.firetower.user_service.common.models.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

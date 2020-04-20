@@ -1,6 +1,6 @@
 package com.firetower.log_service.services;
 
-import com.firetower.common.Log;
+import com.firetower.log_service.common.models.Log;
 import com.firetower.log_service.repositories.LogRepository;
 import org.springframework.stereotype.Service;
 

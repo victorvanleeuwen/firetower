@@ -1,7 +1,7 @@
 package com.firetower.auth_service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.firetower.common.security.JwtConfig;
+import com.firetower.auth_service.common.security.JwtConfig;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.authentication.AuthenticationManager;
