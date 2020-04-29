@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.Dictionary;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.TimerTask;
+import java.util.*;
 
 @Service
 public class CycleService extends TimerTask {
@@ -19,7 +16,7 @@ public class CycleService extends TimerTask {
     private List<User> users;
     private List<Server> servers;
 
-    private Dictionary<Server,ServerState> serverStates;
+    private Map<Server,ServerState> serverStates;
 
     @Autowired
     private GeneratorService generatorService;
@@ -44,6 +41,7 @@ public class CycleService extends TimerTask {
             servers.addAll(generatorService.generateServers(user.getId(),25));
         }
 
+        serverStates = stateService.setup(servers);
 
 
     }
