@@ -87,6 +87,7 @@ public class GeneratorService {
     public List<MetricSet> generateMetricSet(Map<Server,ServerState> input){
 
         List<MetricSet> output = new ArrayList<MetricSet>();
+        Date date = new Date();
 
         for (Map.Entry<Server,ServerState> pointer: input.entrySet()) {
 
@@ -96,7 +97,7 @@ public class GeneratorService {
                 case off:
                     // The system is off, and will not send data.
 
-                    Date date = new Date();
+
 
                     Metric  cpuMetric = new Metric(date,pointer.getKey().getOperatingSystemType(),MetricType.CPU,0,pointer.getKey().getId());
                     Metric  ramMetric = new Metric(date,pointer.getKey().getOperatingSystemType(),MetricType.RAM,0,pointer.getKey().getId());
@@ -119,6 +120,17 @@ public class GeneratorService {
                     //harddriveusage between 20-60 %
 
 
+                    Metric  normacpuMetric = new Metric(date,pointer.getKey().getOperatingSystemType(),MetricType.CPU,pickWeightedNumber(MetricProfile.getNormalCpuProfile()),pointer.getKey().getId());
+                    Metric  normaramMetric = new Metric(date,pointer.getKey().getOperatingSystemType(),MetricType.RAM,pickWeightedNumber(MetricProfile.getNormalRamProfile()),pointer.getKey().getId());
+                    Metric  normanetworkUpMetric = new Metric(date,pointer.getKey().getOperatingSystemType(),MetricType.NETWORK_UP,pickWeightedNumber(MetricProfile.getNormalnetworkUpMetricProfile()),pointer.getKey().getId());
+                    Metric  normanetworkDownMetric = new Metric(date,pointer.getKey().getOperatingSystemType(),MetricType.NETWORK_DOWN,pickWeightedNumber(MetricProfile.getNormalnetworDownMetricProfile()),pointer.getKey().getId());
+                    Metric  normahardDriveUsageMetric = new Metric(date,pointer.getKey().getOperatingSystemType(),MetricType.HARDDRIVE_USAGE,pickWeightedNumber(MetricProfile.getNormalnetworkUpMetricProfile()),pointer.getKey().getId());
+
+                    MetricSet normametricSet = new MetricSet(normacpuMetric,normaramMetric,normanetworkUpMetric,normanetworkDownMetric,normahardDriveUsageMetric);
+
+                    output.add(normametricSet);
+
+
                     break;
 
                 case malicous:
@@ -132,6 +144,16 @@ public class GeneratorService {
                     //harddriveusage between 20-60 %
 
 
+                    Metric  malicouscpuMetric = new Metric(date,pointer.getKey().getOperatingSystemType(),MetricType.CPU,pickWeightedNumber(MetricProfile.getmalicousCpuProfile()),pointer.getKey().getId());
+                    Metric  malicousramMetric = new Metric(date,pointer.getKey().getOperatingSystemType(),MetricType.RAM,pickWeightedNumber(MetricProfile.getmalicousRamProfile()),pointer.getKey().getId());
+                    Metric  malicousnetworkUpMetric = new Metric(date,pointer.getKey().getOperatingSystemType(),MetricType.NETWORK_UP,pickWeightedNumber(MetricProfile.getmalicousnetworkUpMetricProfile()),pointer.getKey().getId());
+                    Metric  malicousnetworkDownMetric = new Metric(date,pointer.getKey().getOperatingSystemType(),MetricType.NETWORK_DOWN,pickWeightedNumber(MetricProfile.getmalicousnetworDownMetricProfile()),pointer.getKey().getId());
+                    Metric  malicoushardDriveUsageMetric = new Metric(date,pointer.getKey().getOperatingSystemType(),MetricType.HARDDRIVE_USAGE,pickWeightedNumber(MetricProfile.getmalicoushardDriveUsageMetricProfile()),pointer.getKey().getId());
+
+                    MetricSet malicousmetricSet = new MetricSet(malicouscpuMetric,malicousramMetric,malicousnetworkUpMetric,malicousnetworkDownMetric,malicoushardDriveUsageMetric);
+
+                    output.add(malicousmetricSet);
+
                     break;
 
                 case heavyLoad:
@@ -143,6 +165,17 @@ public class GeneratorService {
                     // networkup between 50-500 mb
                     // networkdown between 50-200 mb
                     //harddriveusage between 20-60 %
+
+
+                    Metric  heavyLoadcpuMetric = new Metric(date,pointer.getKey().getOperatingSystemType(),MetricType.CPU,pickWeightedNumber(MetricProfile.getHeavyLoadCpuProfile()),pointer.getKey().getId());
+                    Metric  heavyLoadramMetric = new Metric(date,pointer.getKey().getOperatingSystemType(),MetricType.RAM,pickWeightedNumber(MetricProfile.getHeavyLoadRamProfile()),pointer.getKey().getId());
+                    Metric  heavyLoadnetworkUpMetric = new Metric(date,pointer.getKey().getOperatingSystemType(),MetricType.NETWORK_UP,pickWeightedNumber(MetricProfile.getHeavyLoadnetworkUpMetricProfile()),pointer.getKey().getId());
+                    Metric  heavyLoadnetworkDownMetric = new Metric(date,pointer.getKey().getOperatingSystemType(),MetricType.NETWORK_DOWN,pickWeightedNumber(MetricProfile.getHeavyLoadnetworDownMetricProfile()),pointer.getKey().getId());
+                    Metric  heavyLoadhardDriveUsageMetric = new Metric(date,pointer.getKey().getOperatingSystemType(),MetricType.HARDDRIVE_USAGE,pickWeightedNumber(MetricProfile.getHeavyLoadhardDriveUsageMetricProfile()),pointer.getKey().getId());
+
+                    MetricSet heavyLoadmetricSet = new MetricSet(heavyLoadcpuMetric,heavyLoadramMetric,heavyLoadnetworkUpMetric,heavyLoadnetworkDownMetric,heavyLoadhardDriveUsageMetric);
+
+                    output.add(heavyLoadmetricSet);
 
 
                     break;
@@ -158,6 +191,17 @@ public class GeneratorService {
                     //harddriveusage between 50-90 %
 
 
+                    Metric  hardwareissuecpuMetric = new Metric(date,pointer.getKey().getOperatingSystemType(),MetricType.CPU,pickWeightedNumber(MetricProfile.getHardWareissueCpuProfile()),pointer.getKey().getId());
+                    Metric  hardwareissueramMetric = new Metric(date,pointer.getKey().getOperatingSystemType(),MetricType.RAM,pickWeightedNumber(MetricProfile.getHardWareissueRamProfile()),pointer.getKey().getId());
+                    Metric  hardwareissuenetworkUpMetric = new Metric(date,pointer.getKey().getOperatingSystemType(),MetricType.NETWORK_UP,pickWeightedNumber(MetricProfile.getHardWareissueNetworkUpMetricProfile()),pointer.getKey().getId());
+                    Metric  hardwareissuenetworkDownMetric = new Metric(date,pointer.getKey().getOperatingSystemType(),MetricType.NETWORK_DOWN,pickWeightedNumber(MetricProfile.getHardWareissueNetworDownMetricProfile()),pointer.getKey().getId());
+                    Metric  hardwareissuehardDriveUsageMetric = new Metric(date,pointer.getKey().getOperatingSystemType(),MetricType.HARDDRIVE_USAGE,pickWeightedNumber(MetricProfile.getHardWareissueHardDriveUsageMetricProfile()),pointer.getKey().getId());
+
+                    MetricSet hardwareissuemetricSet = new MetricSet(hardwareissuecpuMetric,hardwareissueramMetric,hardwareissuenetworkUpMetric,hardwareissuenetworkDownMetric,hardwareissuehardDriveUsageMetric);
+
+                    output.add(hardwareissuemetricSet);
+
+
                     break;
 
                 case softwareissue:
@@ -171,9 +215,22 @@ public class GeneratorService {
                     //harddriveusage between 20-100 %
 
 
+                    Metric  softwareissuecpuMetric = new Metric(date,pointer.getKey().getOperatingSystemType(),MetricType.CPU,pickWeightedNumber(MetricProfile.getSoftWareissueCpuProfile()),pointer.getKey().getId());
+                    Metric  softwareissueramMetric = new Metric(date,pointer.getKey().getOperatingSystemType(),MetricType.RAM,pickWeightedNumber(MetricProfile.getSoftWareissueRamProfile()),pointer.getKey().getId());
+                    Metric  softwareissuenetworkUpMetric = new Metric(date,pointer.getKey().getOperatingSystemType(),MetricType.NETWORK_UP,pickWeightedNumber(MetricProfile.getSoftWareissueNetworkUpMetricProfile()),pointer.getKey().getId());
+                    Metric  softwareissuenetworkDownMetric = new Metric(date,pointer.getKey().getOperatingSystemType(),MetricType.NETWORK_DOWN,pickWeightedNumber(MetricProfile.getSoftWareissueNetworDownMetricProfile()),pointer.getKey().getId());
+                    Metric  softwareissuehardDriveUsageMetric = new Metric(date,pointer.getKey().getOperatingSystemType(),MetricType.HARDDRIVE_USAGE,pickWeightedNumber(MetricProfile.getSoftWareissueHardDriveUsageMetricProfile()),pointer.getKey().getId());
+
+                    MetricSet softwareissuemetricSet = new MetricSet(softwareissuecpuMetric,softwareissueramMetric,softwareissuenetworkUpMetric,softwareissuenetworkDownMetric,softwareissuehardDriveUsageMetric);
+
+                    output.add(softwareissuemetricSet);
+
+
                     break;
 
             }
         }
+        return output;
     }
+
 }
