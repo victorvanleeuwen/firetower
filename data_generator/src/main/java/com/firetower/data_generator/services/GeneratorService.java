@@ -124,7 +124,7 @@ public class GeneratorService {
                     Metric  normaramMetric = new Metric(date,pointer.getKey().getOperatingSystemType(),MetricType.RAM,pickWeightedNumber(MetricProfile.getNormalRamProfile()),pointer.getKey().getId());
                     Metric  normanetworkUpMetric = new Metric(date,pointer.getKey().getOperatingSystemType(),MetricType.NETWORK_UP,pickWeightedNumber(MetricProfile.getNormalnetworkUpMetricProfile()),pointer.getKey().getId());
                     Metric  normanetworkDownMetric = new Metric(date,pointer.getKey().getOperatingSystemType(),MetricType.NETWORK_DOWN,pickWeightedNumber(MetricProfile.getNormalnetworDownMetricProfile()),pointer.getKey().getId());
-                    Metric  normahardDriveUsageMetric = new Metric(date,pointer.getKey().getOperatingSystemType(),MetricType.HARDDRIVE_USAGE,pickWeightedNumber(MetricProfile.getNormalnetworkUpMetricProfile()),pointer.getKey().getId());
+                    Metric  normahardDriveUsageMetric = new Metric(date,pointer.getKey().getOperatingSystemType(),MetricType.HARDDRIVE_USAGE,pickWeightedNumber(MetricProfile.getNormalhardDriveUsageMetricProfile()),pointer.getKey().getId());
 
                     MetricSet normametricSet = new MetricSet(normacpuMetric,normaramMetric,normanetworkUpMetric,normanetworkDownMetric,normahardDriveUsageMetric);
 
