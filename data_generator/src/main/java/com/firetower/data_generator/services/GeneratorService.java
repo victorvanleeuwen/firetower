@@ -2,10 +2,7 @@ package com.firetower.data_generator.services;
 
 
 import com.firetower.data_generator.common.enums.MetricType;
-import com.firetower.data_generator.common.models.Metric;
-import com.firetower.data_generator.common.models.MetricSet;
-import com.firetower.data_generator.common.models.Server;
-import com.firetower.data_generator.common.models.User;
+import com.firetower.data_generator.common.models.*;
 import com.firetower.data_generator.models.ServerState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -83,6 +80,220 @@ public class GeneratorService {
 
 
     }
+
+    private String pickWeightedString(Map<String,int> input){
+        Random randomGenerator = new Random();
+        Integer sumOfWeight = 0;
+
+        for (Map.Entry<String,int> pointer: input.entrySet())
+        {
+            sumOfWeight += pointer.getValue();
+        }
+
+        int randomInteger = randomGenerator.nextInt(sumOfWeight);
+
+        for (Map.Entry<String,int> pointer:input.entrySet()) {
+            if(randomInteger < pointer.getValue()){
+                return pointer.getKey();
+            }
+            else{
+                randomInteger -= pointer.getValue();
+            }
+        }
+        throw new IndexOutOfBoundsException("Code should never get here");
+
+
+    }
+
+
+
+    public List<Log> generateLogs(Map<Server,ServerState> input)
+    {
+        List<Log> output = new ArrayList<Log>();
+        Date date = new Date();
+
+        for (Map.Entry<Server,ServerState> pointer:input.entrySet()) {
+
+            switch (pointer.getValue().getState()){
+
+                case off:
+                    // The system is off, and will not send data.
+
+
+
+                    break;
+
+                case normal:
+                    //The system is behaving like normal.
+
+                    Random randomNormal = new Random();
+                    int NormalAmountSystem = randomNormal.nextInt(1);
+                    int NormalAmountApplication= randomNormal.nextInt(2);
+                    int NormalAmountSecurity = randomNormal.nextInt(1);
+
+                    int normalSystemindex = 0;
+                    int normalApplicationindex = 0;
+                    int normalSecurityindex = 0;
+
+                    while( normalSystemindex < NormalAmountSystem){
+                        Log normallog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getNormalSystemLogs()));
+                        output.add(normallog);
+                        normalSystemindex ++;
+                    }
+
+                    while( normalApplicationindex < NormalAmountApplication){
+                        Log applicationLog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getNormalApplcationLogs()));
+                        output.add(applicationLog);
+                        normalApplicationindex ++;
+                    }
+
+                    while( normalSecurityindex < NormalAmountSecurity){
+                        Log SecuirtyLog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getNormalSecurityLogs()));
+                        output.add(SecuirtyLog);
+                        normalSecurityindex ++;
+                    }
+
+                    break;
+
+                case malicous:
+                    // The system is compromised.
+                    // With metrics are very inconsistent.
+
+                    Random randommalicous = new Random();
+                    int malicousAmountSystem = randommalicous.nextInt(1);
+                    int malicousAmountApplication= randommalicous.nextInt(2);
+                    int malicousAmountSecurity = randommalicous.nextInt(1);
+
+
+                    int malicousSystemindex = 0;
+                    int malicousApplicationindex = 0;
+                    int malicousSecurityindex = 0;
+
+                    while( malicousSystemindex < malicousAmountSystem){
+                        Log normallog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getmalicousSystemLogs()));
+                        output.add(normallog);
+                        malicousSystemindex ++;
+                    }
+
+                    while( malicousApplicationindex < malicousAmountApplication){
+                        Log applicationLog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getmalicousApplcationLogs()));
+                        output.add(applicationLog);
+                        malicousApplicationindex ++;
+                    }
+
+                    while( malicousSecurityindex < malicousAmountSecurity){
+                        Log SecuirtyLog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getmalicousSecurityLogs()));
+                        output.add(SecuirtyLog);
+                        malicousSecurityindex ++;
+                    }
+
+
+                    break;
+
+                case heavyLoad:
+                    // The system is under heavy load.
+
+                    Random randomheavyLoad = new Random();
+                    int heavyLoadAmountSystem = randomheavyLoad.nextInt(1);
+                    int heavyLoadAmountApplication= randomheavyLoad.nextInt(2);
+                    int heavyLoadAmountSecurity = randomheavyLoad.nextInt(1);
+
+                    int heavyLoadSystemindex = 0;
+                    int heavyLoadApplicationindex = 0;
+                    int heavyLoadSecurityindex = 0;
+
+                    while( heavyLoadSystemindex < heavyLoadAmountSystem){
+                        Log normallog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getHeavyLoadSystemLogs()));
+                        output.add(normallog);
+                        heavyLoadSystemindex ++;
+                    }
+
+                    while( heavyLoadApplicationindex < heavyLoadAmountApplication){
+                        Log applicationLog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getHeavyLoadApplcationLogs()));
+                        output.add(applicationLog);
+                        heavyLoadApplicationindex ++;
+                    }
+
+                    while( heavyLoadSecurityindex < heavyLoadAmountSecurity){
+                        Log SecuirtyLog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getHeavyLoadSecurityLogs()));
+                        output.add(SecuirtyLog);
+                        heavyLoadSecurityindex ++;
+                    }
+
+
+                    break;
+
+                case hardwareissue:
+                    // The system has a hardware issue.
+
+                    Random randomhardwareissue = new Random();
+                    int hardwareissueAmountSystem = randomhardwareissue.nextInt(1);
+                    int hardwareissueAmountApplication= randomhardwareissue.nextInt(2);
+                    int hardwareissueAmountSecurity = randomhardwareissue.nextInt(1);
+
+                    int hardwareissueSystemindex = 0;
+                    int hardwareissueApplicationindex = 0;
+                    int hardwareissueSecurityindex = 0;
+
+                    while( hardwareissueSystemindex < hardwareissueAmountSystem){
+                        Log normallog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getHardWareissueSystemLogs()));
+                        output.add(normallog);
+                        hardwareissueSystemindex ++;
+                    }
+
+                    while( hardwareissueApplicationindex < hardwareissueAmountApplication){
+                        Log applicationLog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getHardWareissueApplcationLogs()));
+                        output.add(applicationLog);
+                        hardwareissueApplicationindex ++;
+                    }
+
+                    while( hardwareissueSecurityindex < hardwareissueAmountSecurity){
+                        Log SecuirtyLog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getHardWareissueSecurityLogs()));
+                        output.add(SecuirtyLog);
+                        hardwareissueSecurityindex ++;
+                    }
+
+                    break;
+
+                case softwareissue:
+                    //The system has software issues.
+
+                    Random randomsoftwareissue = new Random();
+                    int softwareissueAmountSystem = randomsoftwareissue.nextInt(1);
+                    int softwareissueAmountApplication= randomsoftwareissue.nextInt(2);
+                    int softwareissueAmountSecurity = randomsoftwareissue.nextInt(1);
+
+                    int softwareissueSystemindex = 0;
+                    int softwareissueApplicationindex = 0;
+                    int softwareissueSecurityindex = 0;
+
+                    while( softwareissueSystemindex < softwareissueAmountSystem){
+                        Log normallog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getSoftWareissueSystemLogs()));
+                        output.add(normallog);
+                        softwareissueSystemindex ++;
+                    }
+
+                    while( softwareissueApplicationindex < softwareissueAmountApplication){
+                        Log applicationLog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getSoftWareissueApplcationLogs()));
+                        output.add(applicationLog);
+                        softwareissueApplicationindex ++;
+                    }
+
+                    while( softwareissueSecurityindex < softwareissueAmountSecurity){
+                        Log SecuirtyLog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getSoftWareissueSecurityLogs()));
+                        output.add(SecuirtyLog);
+                        softwareissueSecurityindex ++;
+                    }
+
+
+                    break;
+
+            }
+
+        }
+
+    }
+
 
     public List<MetricSet> generateMetricSet(Map<Server,ServerState> input){
 
