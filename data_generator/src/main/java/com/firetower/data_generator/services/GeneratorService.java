@@ -160,9 +160,9 @@ public class GeneratorService {
                     // With metrics are very inconsistent.
 
                     Random randommalicous = new Random();
-                    int malicousAmountSystem = randommalicous.nextInt(1);
-                    int malicousAmountApplication= randommalicous.nextInt(2);
-                    int malicousAmountSecurity = randommalicous.nextInt(1);
+                    int malicousAmountSystem = randommalicous.nextInt(6);
+                    int malicousAmountApplication= randommalicous.nextInt(8);
+                    int malicousAmountSecurity = randommalicous.nextInt(10);
 
 
                     int malicousSystemindex = 0;
@@ -194,8 +194,8 @@ public class GeneratorService {
                     // The system is under heavy load.
 
                     Random randomheavyLoad = new Random();
-                    int heavyLoadAmountSystem = randomheavyLoad.nextInt(1);
-                    int heavyLoadAmountApplication= randomheavyLoad.nextInt(2);
+                    int heavyLoadAmountSystem = randomheavyLoad.nextInt(6);
+                    int heavyLoadAmountApplication= randomheavyLoad.nextInt(6);
                     int heavyLoadAmountSecurity = randomheavyLoad.nextInt(1);
 
                     int heavyLoadSystemindex = 0;
@@ -227,8 +227,8 @@ public class GeneratorService {
                     // The system has a hardware issue.
 
                     Random randomhardwareissue = new Random();
-                    int hardwareissueAmountSystem = randomhardwareissue.nextInt(1);
-                    int hardwareissueAmountApplication= randomhardwareissue.nextInt(2);
+                    int hardwareissueAmountSystem = randomhardwareissue.nextInt(10);
+                    int hardwareissueAmountApplication= randomhardwareissue.nextInt(4);
                     int hardwareissueAmountSecurity = randomhardwareissue.nextInt(1);
 
                     int hardwareissueSystemindex = 0;
@@ -259,8 +259,8 @@ public class GeneratorService {
                     //The system has software issues.
 
                     Random randomsoftwareissue = new Random();
-                    int softwareissueAmountSystem = randomsoftwareissue.nextInt(1);
-                    int softwareissueAmountApplication= randomsoftwareissue.nextInt(2);
+                    int softwareissueAmountSystem = randomsoftwareissue.nextInt(4);
+                    int softwareissueAmountApplication= randomsoftwareissue.nextInt(10);
                     int softwareissueAmountSecurity = randomsoftwareissue.nextInt(1);
 
                     int softwareissueSystemindex = 0;
