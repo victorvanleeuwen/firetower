@@ -4,6 +4,8 @@ import com.firetower.log_service.common.models.Log;
 import com.firetower.log_service.repositories.LogRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class LogService {
 
@@ -28,6 +30,9 @@ public class LogService {
 
     public Log newLog(Log Log){
          return logRepository.save(Log);
+    }
+    public void newLogs(List<Log> input){
+        logRepository.saveAll(input);
     }
 
 }

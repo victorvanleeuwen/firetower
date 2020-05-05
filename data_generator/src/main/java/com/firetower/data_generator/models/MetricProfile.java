@@ -1,4 +1,4 @@
-package com.firetower.data_generator.services;
+package com.firetower.data_generator.models;
 
 import com.firetower.data_generator.common.models.Server;
 import com.firetower.data_generator.models.ServerState;
@@ -8,8 +8,8 @@ import java.util.Map;
 
 public class MetricProfile {
 
-    public static Map<int,int> getNormalCpuProfile(){
-        HashMap<int,int> result = new HashMap<int,int>();
+    public static Map<Integer,Integer> getNormalCpuProfile(){
+        HashMap<Integer,Integer> result = new HashMap<Integer,Integer>();
 
         result.put(20,1);
         result.put(21,1);
@@ -55,8 +55,8 @@ public class MetricProfile {
 
         return result;
     }
-    public static Map<int,int> getNormalRamProfile(){
-        HashMap<int,int> result = new HashMap<int,int>();
+    public static Map<Integer,Integer> getNormalRamProfile(){
+        HashMap<Integer,Integer> result = new HashMap<Integer,Integer>();
 
         result.put(40,1);
         result.put(41,1);
@@ -92,8 +92,8 @@ public class MetricProfile {
 
         return result;
     }
-    public static Map<int,int> getNormalnetworkUpMetricProfile(){
-        HashMap<int,int> result = new HashMap<int,int>();
+    public static Map<Integer,Integer> getNormalnetworkUpMetricProfile(){
+        HashMap<Integer,Integer> result = new HashMap<Integer,Integer>();
         result.put(50,1);
         result.put(55,1);
         result.put(60,2);
@@ -188,8 +188,8 @@ public class MetricProfile {
 
         return result;
     }
-    public static Map<int,int> getNormalnetworDownMetricProfile(){
-        HashMap<int,int> result = new HashMap<int,int>();
+    public static Map<Integer,Integer> getNormalnetworDownMetricProfile(){
+        HashMap<Integer,Integer> result = new HashMap<Integer,Integer>();
 
         result.put(50,1);
         result.put(55,1);
@@ -226,8 +226,8 @@ public class MetricProfile {
         return result;
 
     }
-    public static Map<int,int> getNormalhardDriveUsageMetricProfile(){
-        HashMap<int,int> result = new HashMap<int,int>();
+    public static Map<Integer,Integer> getNormalhardDriveUsageMetricProfile(){
+        HashMap<Integer,Integer> result = new HashMap<Integer,Integer>();
 
         result.put(20,1);
         result.put(21,1);
@@ -275,8 +275,8 @@ public class MetricProfile {
 
     }
 
-    public static Map<int,int> getmalicousCpuProfile(){
-        HashMap<int,int> result = new HashMap<int,int>();
+    public static Map<Integer,Integer> getmalicousCpuProfile(){
+        HashMap<Integer,Integer> result = new HashMap<Integer,Integer>();
 
         result.put(1,1);
         result.put(2,1);
@@ -381,8 +381,8 @@ public class MetricProfile {
 
         return result;
     }
-    public static Map<int,int> getmalicousRamProfile(){
-        HashMap<int,int> result = new HashMap<int,int>();
+    public static Map<Integer,Integer> getmalicousRamProfile(){
+        HashMap<Integer,Integer> result = new HashMap<Integer,Integer>();
         result.put(20,1);
         result.put(21,1);
         result.put(22,1);
@@ -467,8 +467,8 @@ public class MetricProfile {
 
         return result;
     }
-    public static Map<int,int> getmalicousnetworkUpMetricProfile(){
-        HashMap<int,int> result = new HashMap<int,int>();
+    public static Map<Integer,Integer> getmalicousnetworkUpMetricProfile(){
+        HashMap<Integer,Integer> result = new HashMap<Integer,Integer>();
 
         result.put(2000,1);
         result.put(3000,2);
@@ -521,8 +521,8 @@ public class MetricProfile {
         result.put(50000,1);
         return result;
     }
-    public static Map<int,int> getmalicousnetworDownMetricProfile(){
-        HashMap<int,int> result = new HashMap<int,int>();
+    public static Map<Integer,Integer> getmalicousnetworDownMetricProfile(){
+        HashMap<Integer,Integer> result = new HashMap<Integer,Integer>();
 
         result.put(2000,1);
         result.put(3000,2);
@@ -550,8 +550,8 @@ public class MetricProfile {
         result.put(25000,24);
         return result;
     }
-    public static Map<int,int> getmalicoushardDriveUsageMetricProfile(){
-        HashMap<int,int> result = new HashMap<int,int>();
+    public static Map<Integer,Integer> getmalicoushardDriveUsageMetricProfile(){
+        HashMap<Integer,Integer> result = new HashMap<Integer,Integer>();
 
         result.put(20,1);
         result.put(21,1);
@@ -598,8 +598,8 @@ public class MetricProfile {
         return result;
     }
 
-    public static Map<int,int> getHeavyLoadCpuProfile(){
-        HashMap<int,int> result = new HashMap<int,int>();
+    public static Map<Integer,Integer> getHeavyLoadCpuProfile(){
+        HashMap<Integer,Integer> result = new HashMap<Integer,Integer>();
 
         result.put(70,1);
         result.put(71,5);
@@ -635,8 +635,8 @@ public class MetricProfile {
 
         return result;
     }
-    public static Map<int,int> getHeavyLoadRamProfile(){
-        HashMap<int,int> result = new HashMap<int,int>();
+    public static Map<Integer,Integer> getHeavyLoadRamProfile(){
+        HashMap<Integer,Integer> result = new HashMap<Integer,Integer>();
 
         result.put(80,1);
         result.put(81,2);
@@ -662,8 +662,8 @@ public class MetricProfile {
 
         return result;
     }
-    public static Map<int,int> getHeavyLoadnetworkUpMetricProfile(){
-        HashMap<int,int> result = new HashMap<int,int>();
+    public static Map<Integer,Integer> getHeavyLoadnetworkUpMetricProfile(){
+        HashMap<Integer,Integer> result = new HashMap<Integer,Integer>();
 
         result.put(50,1);
         result.put(55,1);
@@ -759,8 +759,8 @@ public class MetricProfile {
 
         return result;
     }
-    public static Map<int,int> getHeavyLoadnetworDownMetricProfile(){
-        HashMap<int,int> result = new HashMap<int,int>();
+    public static Map<Integer,Integer> getHeavyLoadnetworDownMetricProfile(){
+        HashMap<Integer,Integer> result = new HashMap<Integer,Integer>();
 
         result.put(50,1);
         result.put(55,1);
@@ -796,8 +796,8 @@ public class MetricProfile {
 
         return result;
     }
-    public static Map<int,int> getHeavyLoadhardDriveUsageMetricProfile(){
-        HashMap<int,int> result = new HashMap<int,int>();
+    public static Map<Integer,Integer> getHeavyLoadhardDriveUsageMetricProfile(){
+        HashMap<Integer,Integer> result = new HashMap<Integer,Integer>();
 
         result.put(20,1);
         result.put(21,1);
@@ -844,8 +844,8 @@ public class MetricProfile {
         return result;
     }
 
-    public static Map<int,int> getSoftWareissueCpuProfile(){
-        HashMap<int,int> result = new HashMap<int,int>();
+    public static Map<Integer,Integer> getSoftWareissueCpuProfile(){
+        HashMap<Integer,Integer> result = new HashMap<Integer,Integer>();
 
 
         result.put(20,10);
@@ -932,8 +932,8 @@ public class MetricProfile {
 
         return result;
     }
-    public static Map<int,int> getSoftWareissueRamProfile(){
-        HashMap<int,int> result = new HashMap<int,int>();
+    public static Map<Integer,Integer> getSoftWareissueRamProfile(){
+        HashMap<Integer,Integer> result = new HashMap<Integer,Integer>();
 
         result.put(25,1);
         result.put(26,1);
@@ -1014,8 +1014,8 @@ public class MetricProfile {
 
         return result;
     }
-    public static Map<int,int> getSoftWareissueNetworkUpMetricProfile(){
-        HashMap<int,int> result = new HashMap<int,int>();
+    public static Map<Integer,Integer> getSoftWareissueNetworkUpMetricProfile(){
+        HashMap<Integer,Integer> result = new HashMap<Integer,Integer>();
         result.put(50,1);
         result.put(55,1);
         result.put(60,2);
@@ -1109,8 +1109,8 @@ public class MetricProfile {
         result.put(500,1);
         return result;
     }
-    public static Map<int,int> getSoftWareissueNetworDownMetricProfile(){
-        HashMap<int,int> result = new HashMap<int,int>();
+    public static Map<Integer,Integer> getSoftWareissueNetworDownMetricProfile(){
+        HashMap<Integer,Integer> result = new HashMap<Integer,Integer>();
 
         result.put(50,1);
         result.put(55,1);
@@ -1146,8 +1146,8 @@ public class MetricProfile {
 
         return result;
     }
-    public static Map<int,int> getSoftWareissueHardDriveUsageMetricProfile(){
-        HashMap<int,int> result = new HashMap<int,int>();
+    public static Map<Integer,Integer> getSoftWareissueHardDriveUsageMetricProfile(){
+        HashMap<Integer,Integer> result = new HashMap<Integer,Integer>();
 
 
         result.put(10,1);
@@ -1245,8 +1245,8 @@ public class MetricProfile {
         return result;
     }
 
-    public static Map<int,int> getHardWareissueCpuProfile(){
-        HashMap<int,int> result = new HashMap<int,int>();
+    public static Map<Integer,Integer> getHardWareissueCpuProfile(){
+        HashMap<Integer,Integer> result = new HashMap<Integer,Integer>();
 
         result.put(1,19);
         result.put(2,18);
@@ -1351,8 +1351,8 @@ public class MetricProfile {
 
         return result;
     }
-    public static Map<int,int> getHardWareissueRamProfile(){
-        HashMap<int,int> result = new HashMap<int,int>();
+    public static Map<Integer,Integer> getHardWareissueRamProfile(){
+        HashMap<Integer,Integer> result = new HashMap<Integer,Integer>();
 
         result.put(1,19);
         result.put(2,18);
@@ -1457,8 +1457,8 @@ public class MetricProfile {
 
         return result;
     }
-    public static Map<int,int> getHardWareissueNetworkUpMetricProfile(){
-        HashMap<int,int> result = new HashMap<int,int>();
+    public static Map<Integer,Integer> getHardWareissueNetworkUpMetricProfile(){
+        HashMap<Integer,Integer> result = new HashMap<Integer,Integer>();
         result.put(50,1);
         result.put(55,1);
         result.put(60,2);
@@ -1552,8 +1552,8 @@ public class MetricProfile {
         result.put(500,1);
         return result;
     }
-    public static Map<int,int> getHardWareissueNetworDownMetricProfile(){
-        HashMap<int,int> result = new HashMap<int,int>();
+    public static Map<Integer,Integer> getHardWareissueNetworDownMetricProfile(){
+        HashMap<Integer,Integer> result = new HashMap<Integer,Integer>();
 
         result.put(50,1);
         result.put(55,1);
@@ -1589,8 +1589,8 @@ public class MetricProfile {
 
         return result;
     }
-    public static Map<int,int> getHardWareissueHardDriveUsageMetricProfile(){
-        HashMap<int,int> result = new HashMap<int,int>();
+    public static Map<Integer,Integer> getHardWareissueHardDriveUsageMetricProfile(){
+        HashMap<Integer,Integer> result = new HashMap<Integer,Integer>();
 
 
         result.put(10,1);

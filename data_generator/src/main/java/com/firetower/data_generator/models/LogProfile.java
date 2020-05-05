@@ -1,4 +1,4 @@
-package com.firetower.data_generator.services;
+package com.firetower.data_generator.models;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,8 +6,8 @@ import java.util.Map;
 public class LogProfile {
 
 
-    public static Map<String,int> getNormalSystemLogs(){
-        HashMap<String,int> result = new HashMap<String, int>();
+    public static Map<String,Integer> getNormalSystemLogs(){
+        HashMap<String,Integer> result = new HashMap<String, Integer>();
 
         result.put("The system shutdown",1);
         result.put("The system turned on",1);
@@ -19,8 +19,8 @@ public class LogProfile {
 
         return result;
     }
-    public static Map<String,int> getNormalApplcationLogs(){
-        HashMap<String,int> result = new HashMap<String, int>();
+    public static Map<String,Integer> getNormalApplcationLogs(){
+        HashMap<String,Integer> result = new HashMap<String, Integer>();
 
         result.put("Application startup",5);
         result.put("Application shutdown",5);
@@ -32,8 +32,8 @@ public class LogProfile {
         result.put("Service shutdown",15);
         return result;
     }
-    public static Map<String,int> getNormalSecurityLogs(){
-        HashMap<String,int> result = new HashMap<String, int>();
+    public static Map<String,Integer> getNormalSecurityLogs(){
+        HashMap<String,Integer> result = new HashMap<String, Integer>();
 
         result.put("Failed login attempt on system",2);
         result.put("Successful login attempt on system",10);
@@ -50,8 +50,8 @@ public class LogProfile {
     }
 
 
-    public static Map<String,int> getmalicousSystemLogs(){
-        HashMap<String,int> result = new HashMap<String, int>();
+    public static Map<String,Integer> getmalicousSystemLogs(){
+        HashMap<String,Integer> result = new HashMap<String, Integer>();
 
         result.put("The system shutdown",4);
         result.put("The system turned on",1);
@@ -62,8 +62,8 @@ public class LogProfile {
         result.put("Failed to communicate with device",5);
         return result;
     }
-    public static Map<String,int> getmalicousApplcationLogs(){
-        HashMap<String,int> result = new HashMap<String, int>();
+    public static Map<String,Integer> getmalicousApplcationLogs(){
+        HashMap<String,Integer> result = new HashMap<String, Integer>();
 
         result.put("Application startup",10);
         result.put("Application shutdown",10);
@@ -75,8 +75,8 @@ public class LogProfile {
         result.put("Service shutdown",5);
         return result;
     }
-    public static Map<String,int> getmalicousSecurityLogs(){
-        HashMap<String,int> result = new HashMap<String, int>();
+    public static Map<String,Integer> getmalicousSecurityLogs(){
+        HashMap<String,Integer> result = new HashMap<String, Integer>();
 
         result.put("Failed login attempt on system",70);
         result.put("Successful login attempt on system",10);
@@ -92,8 +92,8 @@ public class LogProfile {
         return result;
     }
 
-    public static Map<String,int> getHeavyLoadSystemLogs(){
-        HashMap<String,int> result = new HashMap<String, int>();
+    public static Map<String,Integer> getHeavyLoadSystemLogs(){
+        HashMap<String,Integer> result = new HashMap<String, Integer>();
 
         result.put("The system shutdown",1);
         result.put("The system turned on",1);
@@ -104,8 +104,8 @@ public class LogProfile {
         result.put("Failed to communicate with device",4);
         return result;
     }
-    public static Map<String,int> getHeavyLoadApplcationLogs(){
-        HashMap<String,int> result = new HashMap<String, int>();
+    public static Map<String,Integer> getHeavyLoadApplcationLogs(){
+        HashMap<String,Integer> result = new HashMap<String, Integer>();
 
         result.put("Application startup",20);
         result.put("Application shutdown",10);
@@ -117,8 +117,8 @@ public class LogProfile {
         result.put("Service shutdown",25);
         return result;
     }
-    public static Map<String,int> getHeavyLoadSecurityLogs(){
-        HashMap<String,int> result = new HashMap<String, int>();
+    public static Map<String,Integer> getHeavyLoadSecurityLogs(){
+        HashMap<String,Integer> result = new HashMap<String, Integer>();
 
 
         result.put("Failed login attempt on system",2);
@@ -134,8 +134,8 @@ public class LogProfile {
         return result;
     }
 
-    public static Map<String,int> getSoftWareissueSystemLogs(){
-        HashMap<String,int> result = new HashMap<String, int>();
+    public static Map<String,Integer> getSoftWareissueSystemLogs(){
+        HashMap<String,Integer> result = new HashMap<String, Integer>();
 
         result.put("The system shutdown",5);
         result.put("The system turned on",1);
@@ -146,8 +146,8 @@ public class LogProfile {
         result.put("Failed to communicate with device",1);
         return result;
     }
-    public static Map<String,int> getSoftWareissueApplcationLogs(){
-        HashMap<String,int> result = new HashMap<String, int>();
+    public static Map<String,Integer> getSoftWareissueApplcationLogs(){
+        HashMap<String,Integer> result = new HashMap<String, Integer>();
 
         result.put("Application startup",20);
         result.put("Application shutdown",30);
@@ -159,8 +159,8 @@ public class LogProfile {
         result.put("Service shutdown",10);
         return result;
     }
-    public static Map<String,int> getSoftWareissueSecurityLogs(){
-        HashMap<String,int> result = new HashMap<String, int>();
+    public static Map<String,Integer> getSoftWareissueSecurityLogs(){
+        HashMap<String,Integer> result = new HashMap<String, Integer>();
 
 
         result.put("Failed login attempt on system",2);
@@ -176,8 +176,8 @@ public class LogProfile {
         return result;
     }
 
-    public static Map<String,int> getHardWareissueSystemLogs(){
-        HashMap<String,int> result = new HashMap<String, int>();
+    public static Map<String,Integer> getHardWareissueSystemLogs(){
+        HashMap<String,Integer> result = new HashMap<String, Integer>();
 
         result.put("The system shutdown",40);
         result.put("The system turned on",20);
@@ -188,8 +188,8 @@ public class LogProfile {
         result.put("Failed to communicate with device",50);
         return result;
     }
-    public static Map<String,int> getHardWareissueApplcationLogs(){
-        HashMap<String,int> result = new HashMap<String, int>();
+    public static Map<String,Integer> getHardWareissueApplcationLogs(){
+        HashMap<String,Integer> result = new HashMap<String, Integer>();
 
         result.put("Application startup",1);
         result.put("Application shutdown",1);
@@ -201,8 +201,8 @@ public class LogProfile {
         result.put("Service shutdown",10);
         return result;
     }
-    public static Map<String,int> getHardWareissueSecurityLogs(){
-        HashMap<String,int> result = new HashMap<String, int>();
+    public static Map<String,Integer> getHardWareissueSecurityLogs(){
+        HashMap<String,Integer> result = new HashMap<String, Integer>();
 
 
         result.put("Failed login attempt on system",20);

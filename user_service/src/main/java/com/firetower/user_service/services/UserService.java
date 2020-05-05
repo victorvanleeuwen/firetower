@@ -45,13 +45,13 @@ public class UserService {
     public Iterable<User> generateUsers(int amount) throws IOException {
 
         try {
-            Stream<String> userlines = Files.lines(Paths.get("./user_service/src/main/java/com/firetower/data_generator/companynames.txt"));
+            Stream<String> userlines = Files.lines(Paths.get("./user_service/src/main/java/com/firetower/user_service/companynames.txt"));
             List<String> usernames = userlines.collect(Collectors.toList());
 
-            Stream<String> passwordlines = Files.lines(Paths.get("./user_service/src/main/java/com/firetower/data_generator/passwords.txt"));
+            Stream<String> passwordlines = Files.lines(Paths.get("./user_service/src/main/java/com/firetower/user_service/passwords.txt"));
             List<String> passwords = passwordlines.collect(Collectors.toList());
 
-            Stream<String> emaillines = Files.lines(Paths.get("./user_service/src/main/java/com/firetower/data_generator/emails.txt"));
+            Stream<String> emaillines = Files.lines(Paths.get("./user_service/src/main/java/com/firetower/user_service/emails.txt"));
             List<String> emails = emaillines.collect(Collectors.toList());
 
             List<User> users = new ArrayList<User>();

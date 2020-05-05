@@ -11,6 +11,6 @@ public interface MetricRepository extends CrudRepository<Metric, Long> {
 
     Metric findMetricById (Long id);
 
-    List<Metric> findMetricsByServer_id (Long server_id);
+    List<Metric> findMetricsByServerId (Long server_id);
 
 }

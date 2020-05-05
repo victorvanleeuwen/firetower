@@ -21,6 +21,13 @@ public class Server {
     @Column(nullable = false)
     private Long userId;
 
+    @Column
+    private OperatingSystemType operatingSystemType;
+
+
+    @Column
+    private Boolean on;
+
     public Server(String name, String ip, Long userId, OperatingSystemType operatingSystemType, Boolean on) {
         this.name = name;
         this.ip = ip;
@@ -31,11 +38,6 @@ public class Server {
     public Server(){
 
     }
-
-    private OperatingSystemType operatingSystemType;
-
-
-    private Boolean on;
 
 
     public Boolean getOn() {

@@ -3,15 +3,15 @@ package com.firetower.data_generator.services;
 import com.firetower.data_generator.common.models.Server;
 import com.firetower.data_generator.models.ServerState;
 import com.firetower.data_generator.models.State;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-@Service
 public class StateService {
 
 
-    public  Map<Server,ServerState> setup(List<Server> servers){
+    public static  Map<Server,ServerState> setup(List<Server> servers){
 
         HashMap<Server,ServerState> result = new HashMap<Server,ServerState>();
 
@@ -23,7 +23,7 @@ public class StateService {
 
         return null;
     }
-    private  ServerState pickWeightedRandom(){
+    private static ServerState pickWeightedRandom(){
 
         Random randomGenerator = new Random();
         Integer sumOfWeight = 0;
@@ -49,7 +49,7 @@ public class StateService {
         return null;
     }
     
-    public Map<Server,ServerState> cycle(Map<Server,ServerState> input){
+    public static Map<Server,ServerState> cycle(Map<Server,ServerState> input){
 
 
         for (Map.Entry<Server,ServerState> keyvalue: input.entrySet()) {

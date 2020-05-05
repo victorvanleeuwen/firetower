@@ -25,14 +25,14 @@ public class Metric {
     private Integer value;
 
     @Column(nullable = false)
-    private Long server_id;
+    private Long serverId;
 
-    public Metric(Date date, OperatingSystemType operatingSystemType, MetricType metricType, Integer value, Long server_id) {
+    public Metric(Date date, OperatingSystemType operatingSystemType, MetricType metricType, Integer value, Long serverId) {
         this.date = date;
         this.operatingSystemType = operatingSystemType;
         this.metricType = metricType;
         this.value = value;
-        this.server_id = server_id;
+        this.serverId = serverId;
     }
     public Metric(){
 
@@ -70,11 +70,15 @@ public class Metric {
         this.value = value;
     }
 
-    public Long getServer_id() {
-        return server_id;
+    public Long getServerId() {
+        return serverId;
     }
 
-    public void setServer_id(Long server_id) {
-        this.server_id = server_id;
+    public void setServerId(Long serverId) {
+        this.serverId = serverId;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

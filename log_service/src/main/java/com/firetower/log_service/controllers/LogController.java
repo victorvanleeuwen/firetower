@@ -5,6 +5,8 @@ import com.firetower.log_service.services.LogService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 public class LogController {
 
@@ -36,4 +38,8 @@ public class LogController {
         return logService.newLog(log);
     }
 
+    @RequestMapping(value = RestURIConstant.newLogs, method = RequestMethod.POST)
+    public void newLogs(@RequestBody List<Log> input){
+        logService.newLogs(input);
+    }
 }

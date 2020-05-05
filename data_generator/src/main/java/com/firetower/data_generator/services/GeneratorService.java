@@ -3,9 +3,13 @@ package com.firetower.data_generator.services;
 
 import com.firetower.data_generator.common.enums.MetricType;
 import com.firetower.data_generator.common.models.*;
+import com.firetower.data_generator.models.LogProfile;
+import com.firetower.data_generator.models.MetricProfile;
 import com.firetower.data_generator.models.ServerState;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -17,19 +21,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Service
+
 public class GeneratorService {
 
+    private final RestTemplate restTemplate;
+
     @Autowired
-    private RestTemplate restTemplate;
+    public GeneratorService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
 
-
-    public  List<Server> generateServers(Long userId, int amount) throws IOException {
+    public  List<Server> generateServers(Long userId, Integer amount) throws IOException {
 
         try {
 
-            ResponseEntity<Server[]> response = restTemplate.getForEntity("http://serve-service/genernate?id="+userId+"&amount="+amount,Server[].class);
+            ResponseEntity<Server[]> response = restTemplate.getForEntity("http://server-service/genernate?id="+userId+"&amount="+amount,Server[].class);
             Server[] servers = response.getBody();
             ArrayList<Server> result = new ArrayList<Server>(Arrays.asList(servers));
             return result;
@@ -41,7 +48,7 @@ public class GeneratorService {
         }
     }
 
-    public  List<User> generateUser(int amount) throws IOException {
+    public  List<User> generateUser(Integer amount) throws IOException {
 
 
         try {
@@ -57,18 +64,18 @@ public class GeneratorService {
         }
     }
 
-    private int pickWeightedNumber(Map<int,int> input){
+    private Integer pickWeightedNumber(Map<Integer,Integer> input){
         Random randomGenerator = new Random();
         Integer sumOfWeight = 0;
 
-        for (Map.Entry<int,int> pointer: input.entrySet())
+        for (Map.Entry<Integer,Integer> pointer: input.entrySet())
         {
             sumOfWeight += pointer.getValue();
         }
 
-        int randomInteger = randomGenerator.nextInt(sumOfWeight);
+        Integer randomInteger = randomGenerator.nextInt(sumOfWeight);
 
-        for (Map.Entry<int,int> pointer:input.entrySet()) {
+        for (Map.Entry<Integer,Integer> pointer:input.entrySet()) {
             if(randomInteger < pointer.getValue()){
                 return pointer.getKey();
             }
@@ -81,18 +88,18 @@ public class GeneratorService {
 
     }
 
-    private String pickWeightedString(Map<String,int> input){
+    private String pickWeightedString(Map<String,Integer> input){
         Random randomGenerator = new Random();
         Integer sumOfWeight = 0;
 
-        for (Map.Entry<String,int> pointer: input.entrySet())
+        for (Map.Entry<String,Integer> pointer: input.entrySet())
         {
             sumOfWeight += pointer.getValue();
         }
 
-        int randomInteger = randomGenerator.nextInt(sumOfWeight);
+        Integer randomInteger = randomGenerator.nextInt(sumOfWeight);
 
-        for (Map.Entry<String,int> pointer:input.entrySet()) {
+        for (Map.Entry<String,Integer> pointer:input.entrySet()) {
             if(randomInteger < pointer.getValue()){
                 return pointer.getKey();
             }
@@ -127,13 +134,13 @@ public class GeneratorService {
                     //The system is behaving like normal.
 
                     Random randomNormal = new Random();
-                    int NormalAmountSystem = randomNormal.nextInt(1);
-                    int NormalAmountApplication= randomNormal.nextInt(2);
-                    int NormalAmountSecurity = randomNormal.nextInt(1);
+                    Integer NormalAmountSystem = randomNormal.nextInt(1);
+                    Integer NormalAmountApplication= randomNormal.nextInt(2);
+                    Integer NormalAmountSecurity = randomNormal.nextInt(1);
 
-                    int normalSystemindex = 0;
-                    int normalApplicationindex = 0;
-                    int normalSecurityindex = 0;
+                    Integer normalSystemindex = 0;
+                    Integer normalApplicationindex = 0;
+                    Integer normalSecurityindex = 0;
 
                     while( normalSystemindex < NormalAmountSystem){
                         Log normallog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getNormalSystemLogs()));
@@ -160,14 +167,14 @@ public class GeneratorService {
                     // With metrics are very inconsistent.
 
                     Random randommalicous = new Random();
-                    int malicousAmountSystem = randommalicous.nextInt(6);
-                    int malicousAmountApplication= randommalicous.nextInt(8);
-                    int malicousAmountSecurity = randommalicous.nextInt(10);
+                    Integer malicousAmountSystem = randommalicous.nextInt(6);
+                    Integer malicousAmountApplication= randommalicous.nextInt(8);
+                    Integer malicousAmountSecurity = randommalicous.nextInt(10);
 
 
-                    int malicousSystemindex = 0;
-                    int malicousApplicationindex = 0;
-                    int malicousSecurityindex = 0;
+                    Integer malicousSystemindex = 0;
+                    Integer malicousApplicationindex = 0;
+                    Integer malicousSecurityindex = 0;
 
                     while( malicousSystemindex < malicousAmountSystem){
                         Log normallog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getmalicousSystemLogs()));
@@ -194,13 +201,13 @@ public class GeneratorService {
                     // The system is under heavy load.
 
                     Random randomheavyLoad = new Random();
-                    int heavyLoadAmountSystem = randomheavyLoad.nextInt(6);
-                    int heavyLoadAmountApplication= randomheavyLoad.nextInt(6);
-                    int heavyLoadAmountSecurity = randomheavyLoad.nextInt(1);
+                    Integer heavyLoadAmountSystem = randomheavyLoad.nextInt(6);
+                    Integer heavyLoadAmountApplication= randomheavyLoad.nextInt(6);
+                    Integer heavyLoadAmountSecurity = randomheavyLoad.nextInt(1);
 
-                    int heavyLoadSystemindex = 0;
-                    int heavyLoadApplicationindex = 0;
-                    int heavyLoadSecurityindex = 0;
+                    Integer heavyLoadSystemindex = 0;
+                    Integer heavyLoadApplicationindex = 0;
+                    Integer heavyLoadSecurityindex = 0;
 
                     while( heavyLoadSystemindex < heavyLoadAmountSystem){
                         Log normallog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getHeavyLoadSystemLogs()));
@@ -227,13 +234,13 @@ public class GeneratorService {
                     // The system has a hardware issue.
 
                     Random randomhardwareissue = new Random();
-                    int hardwareissueAmountSystem = randomhardwareissue.nextInt(10);
-                    int hardwareissueAmountApplication= randomhardwareissue.nextInt(4);
-                    int hardwareissueAmountSecurity = randomhardwareissue.nextInt(1);
+                    Integer hardwareissueAmountSystem = randomhardwareissue.nextInt(10);
+                    Integer hardwareissueAmountApplication= randomhardwareissue.nextInt(4);
+                    Integer hardwareissueAmountSecurity = randomhardwareissue.nextInt(1);
 
-                    int hardwareissueSystemindex = 0;
-                    int hardwareissueApplicationindex = 0;
-                    int hardwareissueSecurityindex = 0;
+                    Integer hardwareissueSystemindex = 0;
+                    Integer hardwareissueApplicationindex = 0;
+                    Integer hardwareissueSecurityindex = 0;
 
                     while( hardwareissueSystemindex < hardwareissueAmountSystem){
                         Log normallog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getHardWareissueSystemLogs()));
@@ -259,13 +266,13 @@ public class GeneratorService {
                     //The system has software issues.
 
                     Random randomsoftwareissue = new Random();
-                    int softwareissueAmountSystem = randomsoftwareissue.nextInt(4);
-                    int softwareissueAmountApplication= randomsoftwareissue.nextInt(10);
-                    int softwareissueAmountSecurity = randomsoftwareissue.nextInt(1);
+                    Integer softwareissueAmountSystem = randomsoftwareissue.nextInt(4);
+                    Integer softwareissueAmountApplication= randomsoftwareissue.nextInt(10);
+                    Integer softwareissueAmountSecurity = randomsoftwareissue.nextInt(1);
 
-                    int softwareissueSystemindex = 0;
-                    int softwareissueApplicationindex = 0;
-                    int softwareissueSecurityindex = 0;
+                    Integer softwareissueSystemindex = 0;
+                    Integer softwareissueApplicationindex = 0;
+                    Integer softwareissueSecurityindex = 0;
 
                     while( softwareissueSystemindex < softwareissueAmountSystem){
                         Log normallog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getSoftWareissueSystemLogs()));
@@ -292,6 +299,7 @@ public class GeneratorService {
 
         }
 
+        return output;
     }
 
 
