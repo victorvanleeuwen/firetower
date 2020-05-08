@@ -1,6 +1,6 @@
 package com.firetower.auth_service;
 
-import com.firetower.common.security.JwtConfig;
+import com.firetower.auth_service.common.security.JwtConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;

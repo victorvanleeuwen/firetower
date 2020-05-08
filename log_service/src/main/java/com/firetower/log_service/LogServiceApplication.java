@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class,RepositoryRestMvcAutoConfiguration.class})
 @EnableEurekaClient
-@ComponentScan({"com.firetower.common","com.firetower.log_service"})
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class LogServiceApplication {
 

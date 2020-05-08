@@ -1,7 +1,7 @@
 package com.firetower.log_service.repositories;
 
-import com.firetower.common.Log;
-import com.firetower.common.Metric;
+
+import com.firetower.log_service.common.models.Log;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,5 +12,5 @@ public interface LogRepository extends CrudRepository<Log,Long> {
 
     Log findLogById (Long id);
 
-    List<Log> findLogsByServer_id (Long server_id);
+    List<Log> findLogsByServerId (Long server_id);
 }

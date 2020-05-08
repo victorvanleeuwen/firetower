@@ -1,14 +1,13 @@
 package com.firetower.log_service.controllers;
 
-import com.firetower.common.Log;
+import com.firetower.log_service.common.models.Log;
 import com.firetower.log_service.services.LogService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.List;
+
+@RestController
 public class LogController {
 
     private final LogService logService;
@@ -33,5 +32,14 @@ public class LogController {
     @RequestMapping(value = RestURIConstant.findByServer, method = RequestMethod.GET)
     public @ResponseBody Iterable<Log> getLogByUser(@RequestParam("id") Long id){
         return logService.findLogsByServer(id);
+    }
+    @RequestMapping(value = RestURIConstant.newLog, method = RequestMethod.POST)
+    public @ResponseBody Log newLog(@RequestBody Log log){
+        return logService.newLog(log);
+    }
+
+    @RequestMapping(value = RestURIConstant.newLogs, method = RequestMethod.POST)
+    public void newLogs(@RequestBody List<Log> input){
+        logService.newLogs(input);
     }
 }

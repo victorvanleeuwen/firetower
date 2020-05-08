@@ -1,6 +1,6 @@
 package com.firetower.metric_service.repositories;
 
-import com.firetower.common.Metric;
+import com.firetower.metric_service.common.models.Metric;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,6 +11,6 @@ public interface MetricRepository extends CrudRepository<Metric, Long> {
 
     Metric findMetricById (Long id);
 
-    List<Metric> findMetricsByServer_id (Long server_id);
+    List<Metric> findMetricsByServerId (Long server_id);
 
 }

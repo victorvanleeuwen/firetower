@@ -1,8 +1,10 @@
 package com.firetower.log_service.services;
 
-import com.firetower.common.Log;
+import com.firetower.log_service.common.models.Log;
 import com.firetower.log_service.repositories.LogRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class LogService {
@@ -20,14 +22,17 @@ public class LogService {
     }
 
     public Iterable<Log> findLogsByServer(Long id){
-        return logRepository.findLogsByServer_id(id);
+        return logRepository.findLogsByServerId(id);
     }
     public Log findLogById(Long id){
         return logRepository.findLogById(id);
     }
 
-    public void newLog(Log Log){
-        logRepository.save(Log);
+    public Log newLog(Log Log){
+         return logRepository.save(Log);
+    }
+    public void newLogs(List<Log> input){
+        logRepository.saveAll(input);
     }
 
 }

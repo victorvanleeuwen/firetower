@@ -1,14 +1,14 @@
 package com.firetower.metric_service.controllers;
 
-import com.firetower.common.Metric;
+import com.firetower.metric_service.common.models.Metric;
+import com.firetower.metric_service.common.models.MetricSet;
 import com.firetower.metric_service.services.MetricService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.List;
+
+@RestController
 public class MetricController {
 
     private final MetricService metricService;
@@ -33,5 +33,15 @@ public class MetricController {
     @RequestMapping(value = RestURIConstant.findByServer, method = RequestMethod.GET)
     public @ResponseBody Iterable<Metric> getMetricByUser(@RequestParam("id") Long id){
         return metricService.findMetricsByServer(id);
+    }
+
+    @RequestMapping(value = RestURIConstant.newMetric, method = RequestMethod.POST)
+    public @ResponseBody Metric newMetric(@RequestBody Metric metric){
+        return metricService.newMetric(metric);
+    }
+
+    @RequestMapping(value = RestURIConstant.newMetrics, method = RequestMethod.POST)
+    public void newMetrics(@RequestBody List<MetricSet> input){
+        metricService.newMetrics(input);
     }
 }

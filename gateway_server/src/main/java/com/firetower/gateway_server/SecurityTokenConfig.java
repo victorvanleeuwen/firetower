@@ -1,6 +1,6 @@
 package com.firetower.gateway_server;
 
-import com.firetower.common.security.JwtConfig;
+import com.firetower.gateway_server.common.security.JwtConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
