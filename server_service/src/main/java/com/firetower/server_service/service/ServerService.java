@@ -45,7 +45,7 @@ public class ServerService {
 
     public void generateServers(Long id,int amount) throws IOException {
 
-        Stream<String> serverlines = Files.lines(Paths.get("./data_generator/src/main/java/com/firetower/data_generator/servernames.txt"));
+        Stream<String> serverlines = Files.lines(Paths.get("./server_service/src/main/java/com/firetower/server_service/servernames.txt"));
         List<String> servernames = serverlines.collect(Collectors.toList());
 
 
@@ -56,11 +56,11 @@ public class ServerService {
             String name = (String) RandomUtil.getRandomElement(servernames);
             String ip = RandomUtil.generateRandomIp();
             OperatingSystemType os = RandomUtil.randomEnum(OperatingSystemType.class);
-            Server server = new Server();
+            Server server = new Server(name,ip,id,os,true);
             serverRepository.save(server);
+            System.out.println("generated server");
             i++;
         }
-
 
     }
 }

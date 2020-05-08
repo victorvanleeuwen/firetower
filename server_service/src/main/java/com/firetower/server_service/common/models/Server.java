@@ -26,26 +26,26 @@ public class Server {
 
 
     @Column
-    private Boolean on;
+    private Boolean state;
 
-    public Server(String name, String ip, Long userId, OperatingSystemType operatingSystemType, Boolean on) {
+    public Server(String name, String ip, Long userId, OperatingSystemType operatingSystemType, Boolean state) {
         this.name = name;
         this.ip = ip;
         this.userId = userId;
         this.operatingSystemType = operatingSystemType;
-        this.on = on;
+        this.state = state;
     }
     public Server(){
 
     }
 
 
-    public Boolean getOn() {
-        return on;
+    public Boolean getState() {
+        return state;
     }
 
-    public void setOn(Boolean on) {
-        this.on = on;
+    public void setState(Boolean state) {
+        this.state = state;
     }
 
     public Long getUserId() {

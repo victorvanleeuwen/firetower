@@ -20,7 +20,7 @@ public class Log {
     private OperatingSystemType operatingSystemType;
 
     @Column(nullable = false)
-    private Long server_id;
+    private Long serverId;
 
     @Column(nullable = false)
     private String LogMessage;
@@ -28,7 +28,7 @@ public class Log {
     public Log(Date date, OperatingSystemType operatingSystemType, Long server_id, String logMessage){
         this.date = date;
         this.operatingSystemType = operatingSystemType;
-        this.server_id = server_id;
+        this.serverId = server_id;
 
         LogMessage = logMessage;
     }
@@ -52,12 +52,12 @@ public class Log {
         this.operatingSystemType = operatingSystemType;
     }
 
-    public Long getServer_id() {
-        return server_id;
+    public Long getServerId() {
+        return serverId;
     }
 
-    public void setServer_id(Long server_id) {
-        this.server_id = server_id;
+    public void setServerId(Long serverId) {
+        this.serverId = serverId;
     }
 
     public String getLogMessage() {

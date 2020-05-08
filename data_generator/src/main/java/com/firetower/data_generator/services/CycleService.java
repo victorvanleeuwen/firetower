@@ -1,5 +1,6 @@
 package com.firetower.data_generator.services;
 
+import com.firetower.data_generator.common.models.Log;
 import com.firetower.data_generator.common.models.Server;
 import com.firetower.data_generator.common.models.User;
 import com.firetower.data_generator.models.ServerState;
@@ -26,13 +27,14 @@ public class CycleService extends TimerTask {
 
     private Messaginservice messaginservice;
 
-    public static Boolean paused = false;
+    public static Boolean paused = true;
 
 
     public CycleService(GeneratorService generatorService, StateService stateService, Messaginservice messaginservice) throws IOException {
         this.generatorService = generatorService;
         this.stateService = stateService;
         this.messaginservice = messaginservice;
+
 
 
         //setup a dictionary where a server and serverstate are connected to each other.
@@ -44,8 +46,9 @@ public class CycleService extends TimerTask {
         // for each user generate x amount of servers
         for (User user: users) {
 
-            servers.addAll(this.generatorService.generateServers(user.getId(),15));
+            generatorService.startGeneration(user.getId(),15);
         }
+        servers =generatorService.collectServers();
 
         //start the setup procedure. This will provide a serverstate to a server. With a certain lifespan.
         serverStates = this.stateService.setup(servers);
@@ -59,10 +62,14 @@ public class CycleService extends TimerTask {
         if(!CycleService.paused){
             // If the service is not paused run the program
 
-            messaginservice.sendLogs(generatorService.generateLogs(serverStates));
+            System.out.println("Starting to generate Logs and send them to the logging service");
+            List<Log> logs = generatorService.generateLogs(serverStates);
+            messaginservice.sendLogs(logs);
 
+            System.out.println("Starting to generate metrics and send them to the metric service");
             messaginservice.sendmetrics(generatorService.generateMetricSet(serverStates));
 
+            System.out.println("New cycle in the generator");
             serverStates = stateService.cycle(serverStates);
 
         }

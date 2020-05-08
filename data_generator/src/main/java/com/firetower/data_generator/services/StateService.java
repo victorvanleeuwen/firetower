@@ -21,7 +21,7 @@ public class StateService {
             result.put(server,pickWeightedRandom());
         }
 
-        return null;
+        return result;
     }
     private static ServerState pickWeightedRandom(){
 

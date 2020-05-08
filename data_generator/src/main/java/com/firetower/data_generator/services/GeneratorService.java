@@ -31,31 +31,38 @@ public class GeneratorService {
         this.restTemplate = restTemplate;
     }
 
+    public void startGeneration(Long userId, Integer amount){
 
-    public  List<Server> generateServers(Long userId, Integer amount) throws IOException {
+        System.out.println("Starting generation request for servers");
 
-        try {
+        restTemplate.getForEntity("http://server-service/generate?id="+userId+"&amount="+amount,String.class);
 
-            ResponseEntity<Server[]> response = restTemplate.getForEntity("http://server-service/genernate?id="+userId+"&amount="+amount,Server[].class);
+        System.out.println("Finished generation request");
+    }
+
+
+    public  List<Server> collectServers() throws IOException {
+
+
+
+        System.out.println("Starting server collection request");
+
+            ResponseEntity<Server[]> response = restTemplate.getForEntity("http://server-service/all",Server[].class);
             Server[] servers = response.getBody();
             ArrayList<Server> result = new ArrayList<Server>(Arrays.asList(servers));
+        System.out.println("Finished server collection request");
             return result;
-
-        }
-        catch (Exception e){
-
-            throw e;
-        }
     }
 
     public  List<User> generateUser(Integer amount) throws IOException {
 
 
         try {
-
+            System.out.println("Starting user generation and collection request");
             ResponseEntity<User[]> response = restTemplate.getForEntity("http://user-service/generate?amount="+amount,User[].class);
             User[] users = response.getBody();
             ArrayList<User> result = new ArrayList<User>(Arrays.asList(users));
+            System.out.println("Finished use generation and collection request");
             return result;
         }
         catch (Exception e){
@@ -65,6 +72,9 @@ public class GeneratorService {
     }
 
     private Integer pickWeightedNumber(Map<Integer,Integer> input){
+
+        System.out.println("Starting picking weighted number with input size: " + input.size());
+
         Random randomGenerator = new Random();
         Integer sumOfWeight = 0;
 
@@ -77,6 +87,7 @@ public class GeneratorService {
 
         for (Map.Entry<Integer,Integer> pointer:input.entrySet()) {
             if(randomInteger < pointer.getValue()){
+                System.out.println("Finished picking weighted number with result: "+ pointer.getKey());
                 return pointer.getKey();
             }
             else{
@@ -89,6 +100,7 @@ public class GeneratorService {
     }
 
     private String pickWeightedString(Map<String,Integer> input){
+        System.out.println("Starting picking weighted string with input size: " + input.size());
         Random randomGenerator = new Random();
         Integer sumOfWeight = 0;
 
@@ -101,6 +113,7 @@ public class GeneratorService {
 
         for (Map.Entry<String,Integer> pointer:input.entrySet()) {
             if(randomInteger < pointer.getValue()){
+                System.out.println("Finished picking weighted string with result: "+ pointer.getKey());
                 return pointer.getKey();
             }
             else{
@@ -116,8 +129,10 @@ public class GeneratorService {
 
     public List<Log> generateLogs(Map<Server,ServerState> input)
     {
+
         List<Log> output = new ArrayList<Log>();
         Date date = new Date();
+        System.out.println("Starting  generating Logs with input size: " + input.size() +"And date: "+ date.toString());
 
         for (Map.Entry<Server,ServerState> pointer:input.entrySet()) {
 
@@ -299,6 +314,7 @@ public class GeneratorService {
 
         }
 
+        System.out.println("Finished generating logs with log amount: "+ output.size());
         return output;
     }
 
@@ -307,7 +323,7 @@ public class GeneratorService {
 
         List<MetricSet> output = new ArrayList<MetricSet>();
         Date date = new Date();
-
+        System.out.println("Starting  generating metrics with input size: " + input.size() +"And date: "+ date.toString());
         for (Map.Entry<Server,ServerState> pointer: input.entrySet()) {
 
 
@@ -449,6 +465,7 @@ public class GeneratorService {
 
             }
         }
+        System.out.println("Finished generating metrics with log amount: "+ output.size());
         return output;
     }
 

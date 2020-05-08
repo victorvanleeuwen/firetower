@@ -1,43 +1,52 @@
 package com.firetower.data_generator.common.models;
 
+
 import com.firetower.data_generator.common.enums.OperatingSystemType;
 
 import javax.persistence.*;
 
+@Entity
 public class Server {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 
 
+    @Column(nullable = false)
     private String ip;
 
+    @Column(nullable = false)
     private Long userId;
 
-    public Server(String name, String ip, Long userId, OperatingSystemType operatingSystemType, Boolean on) {
+    @Column
+    private OperatingSystemType operatingSystemType;
+
+
+    @Column
+    private Boolean state;
+
+    public Server(String name, String ip, Long userId, OperatingSystemType operatingSystemType, Boolean state) {
         this.name = name;
         this.ip = ip;
         this.userId = userId;
         this.operatingSystemType = operatingSystemType;
-        this.on = on;
+        this.state = state;
     }
     public Server(){
 
     }
 
-    private OperatingSystemType operatingSystemType;
 
-
-    private Boolean on;
-
-
-    public Boolean getOn() {
-        return on;
+    public Boolean getState() {
+        return state;
     }
 
-    public void setOn(Boolean on) {
-        this.on = on;
+    public void setState(Boolean state) {
+        this.state = state;
     }
 
     public Long getUserId() {

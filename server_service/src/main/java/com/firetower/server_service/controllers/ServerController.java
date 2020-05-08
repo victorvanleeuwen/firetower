@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@Controller
+@RestController
 public class ServerController {
 
     private final ServerService serverService;
@@ -43,8 +43,8 @@ public class ServerController {
     }
 
     @RequestMapping(value = RestUriConstant.generateServers,method = RequestMethod.GET)
-    public void generateServers(@RequestParam("id") Long id,@RequestParam("amount") int amount) throws IOException {
-        serverService.generateServers(id,amount);
+    public void generateServers(@RequestParam("id") Long id,@RequestParam("amount") Integer amount) throws IOException {
+          serverService.generateServers(id,amount);
     }
 
 

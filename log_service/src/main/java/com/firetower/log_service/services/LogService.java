@@ -22,7 +22,7 @@ public class LogService {
     }
 
     public Iterable<Log> findLogsByServer(Long id){
-        return logRepository.findLogsByServer_id(id);
+        return logRepository.findLogsByServerId(id);
     }
     public Log findLogById(Long id){
         return logRepository.findLogById(id);
