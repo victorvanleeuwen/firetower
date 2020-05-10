@@ -46,7 +46,7 @@ public class CycleService extends TimerTask {
         // for each user generate x amount of servers
         for (User user: users) {
 
-            generatorService.startGeneration(user.getId(),15);
+            generatorService.startGeneration(user.getId(),10);
         }
         servers =generatorService.collectServers();
 

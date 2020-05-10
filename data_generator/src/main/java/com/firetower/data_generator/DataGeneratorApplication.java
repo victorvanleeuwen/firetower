@@ -42,6 +42,7 @@ public class DataGeneratorApplication {
     public CommandLineRunner GeneratorDemo(RestTemplate restTemplate){
 
         return  args -> {
+
             Timer timer = new Timer();
             Messaginservice messaginservice = new Messaginservice(restTemplate);
             GeneratorService generatorService = new GeneratorService(restTemplate);

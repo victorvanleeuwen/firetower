@@ -40,6 +40,14 @@ public class MetricService {
             metricRepository.save(set.getNetworkDownMetric());
             metricRepository.save(set.getNetworkUpMetric());
             metricRepository.save(set.getRamMetric());
+
+            System.out.println("=========New Metric set=========");
+            System.out.println("Server id        = "+ set.getCpuMetric().getServerId());
+            System.out.println("CPU              = "+ set.getCpuMetric().getValue()+ "%");
+            System.out.println("RAM              = "+ set.getRamMetric().getValue()+ "%");
+            System.out.println("Network up       = "+ set.getNetworkUpMetric().getValue()+ "MB");
+            System.out.println("Network down     = "+ set.getNetworkDownMetric().getValue()+ "MB");
+            System.out.println("hard drive usage = "+ set.getHarddriveUsageMetric().getValue()+ "%");
         }
 
     }
