@@ -45,6 +45,14 @@ jobs:
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
         working-directory: ./eureka_server
+        
+      - name: Download jar for job 2
+        uses: actions/download-artifact@v1
+        with:
+          name: jarpack
+        
+        
+        
       - name: Build Docker image
         run: docker build . -t $REPO:latest -t $REPO:${GITHUB_SHA::8} --build-arg JAR_FILE=$GITHUB_WORKSPACE/jarpack/*.jar
         working-directory: ./eureka_server
