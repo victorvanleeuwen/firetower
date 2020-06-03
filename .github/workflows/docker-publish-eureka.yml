@@ -1,4 +1,4 @@
-name: build and publish eureka
+name: build and publish eureka image
 
 on:
   push:
@@ -6,21 +6,28 @@ on:
       - 'master'
 
 jobs:
-
+     
   test:
     name: Test - Units & Integrations
     runs-on: ubuntu-18.04
 
     steps:
-      - uses: actions/checkout@v2
-        with:
-          path: eureka_server
+      - uses: actions/checkout@v1
       - name: Set up JDK 13
         uses: actions/setup-java@v1
         with:
           java-version: 13.0.2
+
       - name: Maven Package
-        run: mvn -B clean package -DskipTests
+        run: mvn install -DskipTests
+        working-directory: ./eureka_server
+
+      - name: upload jar
+        uses: actions/upload-artifact@v1
+        with:
+          name: jarpack
+          path: ./eureka_server/target
+
         
   docker:
     name: Publish - Docker Hub
@@ -28,14 +35,28 @@ jobs:
     needs: [test]
     env:
       REPO: ${{ secrets.EUREKA_REPO }}
+
     steps:
-    - uses: actions/checkout@v2
-      with:
-        path: eureka_server
-    - name: Login to Docker Hub
-      run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
-    - name: Build Docker image
-      run: docker build -t $REPO:latest -t $REPO:${GITHUB_SHA::8} .
-    - name: Publish Docker image
-      run: docker push $REPO
+      - uses: actions/checkout@v1
+      - name: Set up JDK 13
+        uses: actions/setup-java@v1
+        with:
+          java-version: 13.0.2
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
+        working-directory: ./eureka_server
+        
+      - name: Download jar for job 2
+        uses: actions/download-artifact@v1
+        with:
+          name: jarpack
+        
+        
+        
+      - name: Build Docker image
+        run: docker build . -t $REPO:latest -t $REPO:${GITHUB_SHA::8} --build-arg JAR_FILE=$GITHUB_WORKSPACE/jarpack/*.jar
+        working-directory: ./eureka_server
+      - name: Publish Docker image
+        run: docker push $REPO
+        working-directory: ./eureka_server
         
