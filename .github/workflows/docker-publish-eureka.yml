@@ -1,0 +1,41 @@
+name: build and publish eureka
+
+on:
+  push:
+    branches:
+      - 'master'
+
+jobs:
+
+  test:
+    name: Test - Units & Integrations
+    runs-on: ubuntu-18.04
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          path: eureka_server
+      - name: Set up JDK 13
+        uses: actions/setup-java@v1
+        with:
+          java-version: 13.0.2
+      - name: Maven Package
+        run: mvn -B clean package -DskipTests
+        
+  docker:
+    name: Publish - Docker Hub
+    runs-on: ubuntu-18.04
+    needs: [test]
+    env:
+      REPO: ${{ secrets.EUREKA_REPO }}
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        path: eureka_server
+    - name: Login to Docker Hub
+      run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
+    - name: Build Docker image
+      run: docker build -t $REPO:latest -t $REPO:${GITHUB_SHA::8} .
+    - name: Publish Docker image
+      run: docker push $REPO
+        
