@@ -54,8 +54,7 @@ jobs:
         
         
       - name: Build Docker image
-        run: docker build . -t $REPO:latest -t $REPO:${GITHUB_SHA::8}
-        working-directory: ./eureka_server
+        run: docker build . -t $REPO:latest -t $REPO:${GITHUB_SHA::8} -f ./eureka_server/Dockerfile
       - name: Publish Docker image
         run: docker push $REPO
         working-directory: ./eureka_server
