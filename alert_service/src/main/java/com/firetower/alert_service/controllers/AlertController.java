@@ -44,7 +44,7 @@ public class AlertController {
     }
 
     @RequestMapping(value = RestURIConstant.delete, method = RequestMethod.DELETE)
-    public void deleteAlert(@RequestBody Long id){
+    public void deleteAlert(@RequestParam Long id){
         alertService.deleteAlert(id);
     }
 

@@ -12,10 +12,3 @@ metric-service: 9050
 data-generator: 9060
 alert_service:  9070
 
-
-kafka manager: 28044
-kafka hq:      28042
-kafka 1:       9092
-kafka 2:       9093
-kafka 3:       9094
-zookeeper:     2181
