@@ -55,7 +55,6 @@ jobs:
         
       - name: Build Docker image
         run: docker build . -t $REPO:latest -t $REPO:${GITHUB_SHA::8} --build-arg JAR_FILE=$GITHUB_WORKSPACE/jarpack/*.jar
-        working-directory: ./eureka_server
       - name: Publish Docker image
         run: docker push $REPO
         working-directory: ./eureka_server
