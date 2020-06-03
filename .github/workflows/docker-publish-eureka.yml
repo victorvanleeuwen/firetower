@@ -6,7 +6,6 @@ on:
       - 'master'
 
 jobs:
-  job_id:
      
   test:
     name: Test - Units & Integrations
