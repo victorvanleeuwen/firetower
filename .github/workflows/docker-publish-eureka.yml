@@ -19,14 +19,14 @@ jobs:
           java-version: 13.0.2
 
       - name: Maven Package
-        run: mvn -B package --file pom.xml -DskipTests
+        run: mvn -B install --file pom.xml -DskipTests
         working-directory: ./eureka_server
 
       - name: upload jar
         uses: actions/upload-artifact@v1
         with:
           name: jarpack
-          path: ./eureka_server/target
+          path: ./eureka_server/target/eureka-service.jar
 
         
   docker:
