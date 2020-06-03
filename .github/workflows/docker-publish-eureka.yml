@@ -1,4 +1,4 @@
-name: build and publish eureka
+name: build and publish eureka image
 
 on:
   push:
