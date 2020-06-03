@@ -1,7 +1,4 @@
 FROM adoptopenjdk/openjdk13
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
+ADD $GITHUB_WORKSPACE/jarpack/*.jar eureka-serivce.jar
 EXPOSE 8761
-ENTRYPOINT ["java","-jar","/app.jar"]
-
-
+ENTRYPOINT ["java","-jar","eureka-serivce.jar"]
