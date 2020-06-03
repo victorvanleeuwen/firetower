@@ -1,6 +1,7 @@
 package com.firetower.data_generator.services;
 
 
+import com.firetower.data_generator.common.enums.LogType;
 import com.firetower.data_generator.common.enums.MetricType;
 import com.firetower.data_generator.common.models.*;
 import com.firetower.data_generator.models.LogProfile;
@@ -158,19 +159,19 @@ public class GeneratorService {
                     Integer normalSecurityindex = 0;
 
                     while( normalSystemindex < NormalAmountSystem){
-                        Log normallog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getNormalSystemLogs()));
+                        Log normallog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getNormalSystemLogs()),LogType.SYSTEM);
                         output.add(normallog);
                         normalSystemindex ++;
                     }
 
                     while( normalApplicationindex < NormalAmountApplication){
-                        Log applicationLog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getNormalApplcationLogs()));
+                        Log applicationLog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getNormalApplcationLogs()),LogType.APPLICATION);
                         output.add(applicationLog);
                         normalApplicationindex ++;
                     }
 
                     while( normalSecurityindex < NormalAmountSecurity){
-                        Log SecuirtyLog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getNormalSecurityLogs()));
+                        Log SecuirtyLog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getNormalSecurityLogs()),LogType.SECURITY);
                         output.add(SecuirtyLog);
                         normalSecurityindex ++;
                     }
@@ -192,19 +193,19 @@ public class GeneratorService {
                     Integer malicousSecurityindex = 0;
 
                     while( malicousSystemindex < malicousAmountSystem){
-                        Log normallog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getmalicousSystemLogs()));
+                        Log normallog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getmalicousSystemLogs()),LogType.SYSTEM);
                         output.add(normallog);
                         malicousSystemindex ++;
                     }
 
                     while( malicousApplicationindex < malicousAmountApplication){
-                        Log applicationLog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getmalicousApplcationLogs()));
+                        Log applicationLog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getmalicousApplcationLogs()),LogType.APPLICATION);
                         output.add(applicationLog);
                         malicousApplicationindex ++;
                     }
 
                     while( malicousSecurityindex < malicousAmountSecurity){
-                        Log SecuirtyLog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getmalicousSecurityLogs()));
+                        Log SecuirtyLog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getmalicousSecurityLogs()),LogType.SECURITY);
                         output.add(SecuirtyLog);
                         malicousSecurityindex ++;
                     }
@@ -225,19 +226,19 @@ public class GeneratorService {
                     Integer heavyLoadSecurityindex = 0;
 
                     while( heavyLoadSystemindex < heavyLoadAmountSystem){
-                        Log normallog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getHeavyLoadSystemLogs()));
+                        Log normallog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getHeavyLoadSystemLogs()),LogType.SYSTEM);
                         output.add(normallog);
                         heavyLoadSystemindex ++;
                     }
 
                     while( heavyLoadApplicationindex < heavyLoadAmountApplication){
-                        Log applicationLog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getHeavyLoadApplcationLogs()));
+                        Log applicationLog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getHeavyLoadApplcationLogs()),LogType.APPLICATION);
                         output.add(applicationLog);
                         heavyLoadApplicationindex ++;
                     }
 
                     while( heavyLoadSecurityindex < heavyLoadAmountSecurity){
-                        Log SecuirtyLog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getHeavyLoadSecurityLogs()));
+                        Log SecuirtyLog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getHeavyLoadSecurityLogs()),LogType.SECURITY);
                         output.add(SecuirtyLog);
                         heavyLoadSecurityindex ++;
                     }
@@ -258,19 +259,19 @@ public class GeneratorService {
                     Integer hardwareissueSecurityindex = 0;
 
                     while( hardwareissueSystemindex < hardwareissueAmountSystem){
-                        Log normallog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getHardWareissueSystemLogs()));
+                        Log normallog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getHardWareissueSystemLogs()),LogType.SYSTEM);
                         output.add(normallog);
                         hardwareissueSystemindex ++;
                     }
 
                     while( hardwareissueApplicationindex < hardwareissueAmountApplication){
-                        Log applicationLog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getHardWareissueApplcationLogs()));
+                        Log applicationLog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getHardWareissueApplcationLogs()),LogType.APPLICATION);
                         output.add(applicationLog);
                         hardwareissueApplicationindex ++;
                     }
 
                     while( hardwareissueSecurityindex < hardwareissueAmountSecurity){
-                        Log SecuirtyLog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getHardWareissueSecurityLogs()));
+                        Log SecuirtyLog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getHardWareissueSecurityLogs()),LogType.SECURITY);
                         output.add(SecuirtyLog);
                         hardwareissueSecurityindex ++;
                     }
@@ -290,19 +291,19 @@ public class GeneratorService {
                     Integer softwareissueSecurityindex = 0;
 
                     while( softwareissueSystemindex < softwareissueAmountSystem){
-                        Log normallog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getSoftWareissueSystemLogs()));
+                        Log normallog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getSoftWareissueSystemLogs()),LogType.SYSTEM);
                         output.add(normallog);
                         softwareissueSystemindex ++;
                     }
 
                     while( softwareissueApplicationindex < softwareissueAmountApplication){
-                        Log applicationLog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getSoftWareissueApplcationLogs()));
+                        Log applicationLog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getSoftWareissueApplcationLogs()),LogType.APPLICATION);
                         output.add(applicationLog);
                         softwareissueApplicationindex ++;
                     }
 
                     while( softwareissueSecurityindex < softwareissueAmountSecurity){
-                        Log SecuirtyLog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getSoftWareissueSecurityLogs()));
+                        Log SecuirtyLog = new Log(date,pointer.getKey().getOperatingSystemType(),pointer.getKey().getId(),pickWeightedString(LogProfile.getSoftWareissueSecurityLogs()),LogType.SECURITY);
                         output.add(SecuirtyLog);
                         softwareissueSecurityindex ++;
                     }

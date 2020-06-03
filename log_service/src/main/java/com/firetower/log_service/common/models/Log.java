@@ -2,6 +2,7 @@ package com.firetower.log_service.common.models;
 
 
 
+import com.firetower.log_service.common.enums.LogType;
 import com.firetower.log_service.common.enums.OperatingSystemType;
 
 import javax.persistence.*;
@@ -25,12 +26,16 @@ public class Log {
     @Column(nullable = false)
     private String LogMessage;
 
-    public Log(Date date, OperatingSystemType operatingSystemType, Long server_id, String logMessage){
+    @Column
+    private LogType logType;
+
+    public Log(Date date, OperatingSystemType operatingSystemType, Long server_id, String logMessage, LogType logType){
         this.date = date;
         this.operatingSystemType = operatingSystemType;
         this.serverId = server_id;
 
         LogMessage = logMessage;
+        this.logType = logType;
     }
     public Log(){
 
@@ -66,5 +71,9 @@ public class Log {
 
     public void setLogMessage(String logMessage) {
         LogMessage = logMessage;
+    }
+
+    public LogType getLogType() {
+        return logType;
     }
 }

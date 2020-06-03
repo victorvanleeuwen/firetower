@@ -44,4 +44,19 @@ public class MetricController {
     public void newMetrics(@RequestBody List<MetricSet> input){
         metricService.newMetrics(input);
     }
+
+    @RequestMapping(value = RestURIConstant.MetricsWithServers,method = RequestMethod.POST)
+    public @ResponseBody List<Metric> findMetricsByServerIds(@RequestBody List<Long> values){
+        return metricService.findMetricsByServerIds(values);
+    }
+
+    @RequestMapping(value = RestURIConstant.recent,method = RequestMethod.GET)
+    public @ResponseBody List<Metric> findRecentMetrics(@RequestParam Long id){
+        return metricService.GetMostRecentMetricsForServer(id);
+    }
+
+    @RequestMapping(value = RestURIConstant.recents,method = RequestMethod.POST)
+    public @ResponseBody List<Metric> findMultipleRecentMetrics(@RequestBody List<Long> values){
+        return metricService.GetMostRecentMetricsForServers(values);
+    }
 }

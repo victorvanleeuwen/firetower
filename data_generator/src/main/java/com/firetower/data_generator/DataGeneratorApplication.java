@@ -1,10 +1,6 @@
 package com.firetower.data_generator;
 
-import com.firetower.data_generator.services.CycleService;
-import com.firetower.data_generator.services.GeneratorService;
-import com.firetower.data_generator.services.Messaginservice;
-import com.firetower.data_generator.services.StateService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.firetower.data_generator.services.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -38,8 +34,7 @@ public class DataGeneratorApplication {
     }
 
     @Bean
-
-    public CommandLineRunner GeneratorDemo(RestTemplate restTemplate){
+    public CommandLineRunner GeneratorDemo(RestTemplate restTemplate, RabbitMessenger rabbitMessenger){
 
         return  args -> {
 
@@ -47,7 +42,7 @@ public class DataGeneratorApplication {
             Messaginservice messaginservice = new Messaginservice(restTemplate);
             GeneratorService generatorService = new GeneratorService(restTemplate);
             StateService stateService = new StateService();
-            CycleService cycleService = new CycleService(generatorService,stateService,messaginservice);
+            CycleService cycleService = new CycleService(generatorService,stateService,messaginservice, rabbitMessenger );
             timer.scheduleAtFixedRate(cycleService,(long)0,(long)6000); //tick every minute
 
         };

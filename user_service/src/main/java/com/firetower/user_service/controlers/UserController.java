@@ -35,6 +35,13 @@ public class UserController {
         return "Hello there";
     }
 
+
+    @RequestMapping(value = RestURIConstant.getId, method = RequestMethod.GET)
+    public @ResponseBody
+    Long getId(@RequestParam("email") String email) {
+        return service.idByEmail(email);
+    }
+
     @RequestMapping(value = RestURIConstant.currentUser, method = RequestMethod.GET)
     public @ResponseBody
     User current(Authentication authentication) {

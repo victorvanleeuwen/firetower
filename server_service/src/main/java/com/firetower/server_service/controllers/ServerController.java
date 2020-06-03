@@ -2,6 +2,9 @@ package com.firetower.server_service.controllers;
 
 import com.firetower.server_service.common.models.Server;
 import com.firetower.server_service.service.ServerService;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,8 +27,15 @@ public class ServerController {
     }
 
     @RequestMapping(value = RestUriConstant.byId, method = RequestMethod.GET)
-    public @ResponseBody Server getUserByCode(@RequestParam("id") Long id){
+    public @ResponseBody Server getServerByCode(@RequestParam("id") Long id){
         return serverService.findServerById(id);
+    }
+
+    @RequestMapping(value = RestUriConstant.servers, method = RequestMethod.GET)
+    public @ResponseBody List<Server> getServers(){
+        final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        final String email = (String) auth.getPrincipal();
+        return serverService.getServers(email);
     }
 
     @RequestMapping(value = RestUriConstant.byCompany, method = RequestMethod.GET)
@@ -46,8 +56,5 @@ public class ServerController {
     public void generateServers(@RequestParam("id") Long id,@RequestParam("amount") Integer amount) throws IOException {
           serverService.generateServers(id,amount);
     }
-
-
-
 
 }
