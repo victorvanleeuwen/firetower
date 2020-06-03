@@ -37,6 +37,11 @@ public class UserService {
     }
 
     public User UserByEmail(String email){return userRepository.findUserByEmail(email);}
+    
+    public Long idByEmail(String email){
+        User user = userRepository.findUserByEmail(email);
+        return user.getId();
+    }
 
     public void newUsers(List<User> users){
         userRepository.saveAll(users);

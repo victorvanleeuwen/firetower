@@ -8,5 +8,7 @@ public class RestUriConstant {
     public static final String byCompany= "/company";
     public static final String newServers="/newServers";
     public static final String generateServers= "/generate";
+    public static final String servers = "/servers";
+
 
 }

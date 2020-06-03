@@ -3,11 +3,12 @@ package com.firetower.data_generator.common.models;
 
 
 
+
+import com.firetower.data_generator.common.enums.LogType;
 import com.firetower.data_generator.common.enums.OperatingSystemType;
 
 import javax.persistence.*;
 import java.util.Date;
-
 
 public class Log {
 
@@ -19,16 +20,22 @@ public class Log {
 
     private OperatingSystemType operatingSystemType;
 
+
     private Long serverId;
+
 
     private String LogMessage;
 
-    public Log(Date date, OperatingSystemType operatingSystemType, Long server_id, String logMessage){
+
+    private LogType logType;
+
+    public Log(Date date, OperatingSystemType operatingSystemType, Long server_id, String logMessage, LogType logType){
         this.date = date;
         this.operatingSystemType = operatingSystemType;
         this.serverId = server_id;
 
         LogMessage = logMessage;
+        this.logType = logType;
     }
     public Log(){
 
@@ -64,5 +71,9 @@ public class Log {
 
     public void setLogMessage(String logMessage) {
         LogMessage = logMessage;
+    }
+
+    public LogType getLogType() {
+        return logType;
     }
 }

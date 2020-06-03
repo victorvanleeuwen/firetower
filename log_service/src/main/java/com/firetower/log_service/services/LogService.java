@@ -11,9 +11,11 @@ public class LogService {
 
 
     private final LogRepository logRepository;
+    private final AnalysisService analysisService;
 
-    public LogService(LogRepository logRepository) {
+    public LogService(LogRepository logRepository, AnalysisService analysisService) {
         this.logRepository = logRepository;
+        this.analysisService = analysisService;
     }
 
 
@@ -29,10 +31,16 @@ public class LogService {
     }
 
     public Log newLog(Log Log){
-         return logRepository.save(Log);
+        Log output = logRepository.save(Log);
+        analysisService.analyseLog(output);
+        return output;
     }
     public void newLogs(List<Log> input){
-        logRepository.saveAll(input);
+
+        for (Log log:input) {
+            newLog(log);
+
+        }
     }
 
 }

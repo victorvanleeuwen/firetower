@@ -4,8 +4,6 @@ import com.firetower.data_generator.common.models.Log;
 import com.firetower.data_generator.common.models.Server;
 import com.firetower.data_generator.common.models.User;
 import com.firetower.data_generator.models.ServerState;
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.*;
@@ -27,26 +25,28 @@ public class CycleService extends TimerTask {
 
     private Messaginservice messaginservice;
 
+    private RabbitMessenger rabbitMessenger;
+
     public static Boolean paused = true;
 
 
-    public CycleService(GeneratorService generatorService, StateService stateService, Messaginservice messaginservice) throws IOException {
+    public CycleService(GeneratorService generatorService, StateService stateService, Messaginservice messaginservice, RabbitMessenger rabbitMessenger) throws IOException {
         this.generatorService = generatorService;
         this.stateService = stateService;
         this.messaginservice = messaginservice;
-
+        this.rabbitMessenger = rabbitMessenger;
 
 
         //setup a dictionary where a server and serverstate are connected to each other.
         serverStates = new Hashtable<Server,ServerState>();
 
         // Make a call to the user service where x amount of users are generated.
-        users = this.generatorService.generateUser(100);
+        users = this.generatorService.generateUser(15);
 
         // for each user generate x amount of servers
         for (User user: users) {
 
-            generatorService.startGeneration(user.getId(),10);
+            generatorService.startGeneration(user.getId(),5);
         }
         servers =generatorService.collectServers();
 
@@ -64,10 +64,11 @@ public class CycleService extends TimerTask {
 
             System.out.println("Starting to generate Logs and send them to the logging service");
             List<Log> logs = generatorService.generateLogs(serverStates);
-            messaginservice.sendLogs(logs);
+//            messaginservice.sendLogs(logs);
+            rabbitMessenger.sendLogs(logs);
 
             System.out.println("Starting to generate metrics and send them to the metric service");
-            messaginservice.sendmetrics(generatorService.generateMetricSet(serverStates));
+            rabbitMessenger.sendMetrics(generatorService.generateMetricSet(serverStates));
 
             System.out.println("New cycle in the generator");
             serverStates = stateService.cycle(serverStates);

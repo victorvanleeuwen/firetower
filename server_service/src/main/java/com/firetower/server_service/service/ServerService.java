@@ -5,7 +5,9 @@ import com.firetower.server_service.common.enums.OperatingSystemType;
 import com.firetower.server_service.common.models.Server;
 import com.firetower.server_service.common.utils.RandomUtil;
 import com.firetower.server_service.repositories.ServerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -17,6 +19,9 @@ import java.util.stream.Stream;
 
 @Service
 public class ServerService {
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     private final ServerRepository serverRepository;
 
@@ -33,6 +38,13 @@ public class ServerService {
     }
     public Server findServerById(Long Id){
         return serverRepository.findServerById(Id);
+    }
+    
+    public List<Server> getServers(String email){
+
+        Long id = restTemplate.getForObject("http://user-service//getId?email="+email, Long.class);
+        return serverRepository.findServersByUserId(id);
+        
     }
 
     public Server newServer(Server server){
