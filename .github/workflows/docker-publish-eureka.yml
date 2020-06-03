@@ -17,12 +17,17 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 13.0.2
+
       - name: Maven Package
         run: mvn install -DskipTests
         working-directory: ./eureka_server
-      - name: Maven Verify
-        run: mvn -B clean verify
-        working-directory: ./eureka_server
+
+      - name: upload jar
+        uses: actions/upload-artifact@v1
+        with:
+          name: jarpack
+          path: ./target
+
         
   docker:
     name: Publish - Docker Hub
@@ -41,7 +46,7 @@ jobs:
         run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
         working-directory: ./eureka_server
       - name: Build Docker image
-        run: docker build -t $REPO:latest -t $REPO:${GITHUB_SHA::8} .
+        run: docker build . -t $REPO:latest -t $REPO:${GITHUB_SHA::8} --build-arg JAR_FILE=$GITHUB_WORKSPACE/jarpack/*.jar
         working-directory: ./eureka_server
       - name: Publish Docker image
         run: docker push $REPO
