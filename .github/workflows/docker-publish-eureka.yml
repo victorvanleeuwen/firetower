@@ -19,7 +19,7 @@ jobs:
           java-version: 13.0.2
 
       - name: Maven Package
-        run: mvn install -DskipTests
+        run: mvn -B package --file pom.xml -DskipTests
         working-directory: ./eureka_server
 
       - name: upload jar
