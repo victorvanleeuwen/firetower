@@ -18,7 +18,7 @@ jobs:
         with:
           java-version: 13.0.2
       - name: Maven Package
-        run: mvn -B clean package -DskipTests
+        run: mvn install -DskipTests
         working-directory: ./eureka_server
       - name: Maven Verify
         run: mvn -B clean verify
