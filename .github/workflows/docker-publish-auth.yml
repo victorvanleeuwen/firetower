@@ -20,7 +20,7 @@ jobs:
 
       - name: Maven Package
         run: mvn -B install --file pom.xml -DskipTests
-        working-directory: ./authservice
+        working-directory: ./auth_service
 
       - name: upload jar
         uses: actions/upload-artifact@v1
