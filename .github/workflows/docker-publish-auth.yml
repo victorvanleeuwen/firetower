@@ -26,7 +26,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: jarpack
-          path: ./authservice/target/auth-service.jar
+          path: ./auth_service/target/auth-service.jar
 
         
   docker:
@@ -44,7 +44,7 @@ jobs:
           java-version: 13.0.2
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
-        working-directory: ./authservice
+        working-directory: ./auth_service
         
       - name: Download jar for job 2
         uses: actions/download-artifact@v1
@@ -54,8 +54,8 @@ jobs:
         
         
       - name: Build Docker image
-        run: docker build . -t $REPO:latest -t $REPO:${GITHUB_SHA::8} -f ./authservice/Dockerfile
+        run: docker build . -t $REPO:latest -t $REPO:${GITHUB_SHA::8} -f ./auth_service/Dockerfile
       - name: Publish Docker image
         run: docker push $REPO
-        working-directory: ./authservice
+        working-directory: ./auth_service
         

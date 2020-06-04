@@ -20,13 +20,13 @@ jobs:
 
       - name: Maven Package
         run: mvn -B install --file pom.xml -DskipTests
-        working-directory: ./data-generator
+        working-directory: ./data_generator
 
       - name: upload jar
         uses: actions/upload-artifact@v1
         with:
           name: jarpack
-          path: ./data-generator/target/generator-service.jar
+          path: ./data_generator/target/generator-service.jar
 
         
   docker:
@@ -44,7 +44,7 @@ jobs:
           java-version: 13.0.2
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
-        working-directory: ./data-generator
+        working-directory: ./data_generator
         
       - name: Download jar for job 2
         uses: actions/download-artifact@v1
@@ -54,8 +54,8 @@ jobs:
         
         
       - name: Build Docker image
-        run: docker build . -t $REPO:latest -t $REPO:${GITHUB_SHA::8} -f ./data-generator/Dockerfile
+        run: docker build . -t $REPO:latest -t $REPO:${GITHUB_SHA::8} -f ./data_generator/Dockerfile
       - name: Publish Docker image
         run: docker push $REPO
-        working-directory: ./data-generator
+        working-directory: ./data_generator
         
