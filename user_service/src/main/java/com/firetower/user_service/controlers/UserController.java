@@ -32,7 +32,7 @@ public class UserController {
     @RequestMapping(value = RestURIConstant.protectedtest, method = RequestMethod.GET)
     public @ResponseBody
     String test() {
-        return "Hello there";
+        return "Hello ";
     }
 
 
