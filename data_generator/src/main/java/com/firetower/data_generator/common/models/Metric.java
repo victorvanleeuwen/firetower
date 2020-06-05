@@ -25,6 +25,8 @@ public class Metric {
 
     private Long serverId;
 
+    private Boolean used;
+
     public Metric(Date date, OperatingSystemType operatingSystemType, MetricType metricType, Integer value, Long serverId) {
         this.date = date;
         this.operatingSystemType = operatingSystemType;
@@ -78,5 +80,13 @@ public class Metric {
 
     public Long getId() {
         return id;
+    }
+
+    public Boolean getUsed() {
+        return used;
+    }
+
+    public void setUsed(Boolean used) {
+        this.used = used;
     }
 }

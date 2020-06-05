@@ -18,11 +18,19 @@ public class AnalysisService {
         this.logRepository = logRepository;
         this.messageService = messageService;
     }
+    private void updateHistory(List<Log> history){
+
+        for (Log index: history) {
+            index.setUsed(true);
+        }
+        logRepository.saveAll(history);
+
+    }
 
 
     public void analyseLog(Log log){
 
-        List<Log> history = logRepository.findLogsByServerIdAndAndDateAfter(log.getServerId(),getDate());
+        List<Log> history = logRepository.findLogsByServerIdAndAndDateAfterAndUsed(log.getServerId(),getDate(),false);
 
         switch (log.getLogType()){
 
@@ -34,6 +42,7 @@ public class AnalysisService {
 
                     Alert alert = new Alert(message,severity,new Date(),log.getServerId());
                     messageService.sendAlert(alert);
+                    updateHistory(history);
                 }
 
                 if(counter("The system turned on",history) > 15){
@@ -43,6 +52,7 @@ public class AnalysisService {
 
                     Alert alert = new Alert(message,severity,new Date(),log.getServerId());
                     messageService.sendAlert(alert);
+                    updateHistory(history);
                 }
 
                 if(counter("Changes have been made to the network interface",history) > 18){
@@ -51,6 +61,7 @@ public class AnalysisService {
                     AlertSeverity severity = AlertSeverity.Medium;
                     Alert alert = new Alert(message,severity,new Date(),log.getServerId());
                     messageService.sendAlert(alert);
+                    updateHistory(history);
                 }
 
                 if(counter("Failed to make changes to the network interface",history) > 18){
@@ -59,6 +70,7 @@ public class AnalysisService {
                     AlertSeverity severity = AlertSeverity.Medium;
                     Alert alert = new Alert(message,severity,new Date(),log.getServerId());
                     messageService.sendAlert(alert);
+                    updateHistory(history);
                 }
 
                 if(counter("New device connected to system",history) > 18){
@@ -67,6 +79,7 @@ public class AnalysisService {
                     AlertSeverity severity = AlertSeverity.Medium;
                     Alert alert = new Alert(message,severity,new Date(),log.getServerId());
                     messageService.sendAlert(alert);
+                    updateHistory(history);
                 }
 
                 if(counter("Device connected to system",history) > 18){
@@ -75,6 +88,7 @@ public class AnalysisService {
                     AlertSeverity severity = AlertSeverity.Medium;
                     Alert alert = new Alert(message,severity,new Date(),log.getServerId());
                     messageService.sendAlert(alert);
+                    updateHistory(history);
                 }
 
                 if(counter("Failed to communicate with device",history) > 18){
@@ -83,88 +97,99 @@ public class AnalysisService {
                     AlertSeverity severity = AlertSeverity.Low;
                     Alert alert = new Alert(message,severity,new Date(),log.getServerId());
                     messageService.sendAlert(alert);
+                    updateHistory(history);
                 }
                 break;
 
             case SECURITY:
 
-                if(counter("Failed login attempt on system",history) > 12){
+                if(counter("Failed login attempt on system",history) > 14){
 
                     String message = "To many failed login attempts.";
                     AlertSeverity severity = AlertSeverity.High;
                     Alert alert = new Alert(message,severity,new Date(),log.getServerId());
                     messageService.sendAlert(alert);
+                    updateHistory(history);
 
                 }
-                if(counter("Successful login attempt on system",history) > 12){
+                if(counter("Successful login attempt on system",history) > 14){
                     String message = "High amount of successful logins.";
                     AlertSeverity severity = AlertSeverity.Low;
                     Alert alert = new Alert(message,severity,new Date(),log.getServerId());
                     messageService.sendAlert(alert);
+                    updateHistory(history);
 
                 }
-                if(counter("Failed to create administrator user",history) > 12){
+                if(counter("Failed to create administrator user",history) > 14){
 
                     String message = "Many failed attempts to create an admin account.";
                     AlertSeverity severity = AlertSeverity.High;
                     Alert alert = new Alert(message,severity,new Date(),log.getServerId());
                     messageService.sendAlert(alert);
+                    updateHistory(history);
 
                 }
-                if(counter("Successfully created administrator user",history) > 12){
+                if(counter("Successfully created administrator user",history) > 14){
 
                     String message = "High amount of admin accounts are created.";
                     AlertSeverity severity = AlertSeverity.High;
                     Alert alert = new Alert(message,severity,new Date(),log.getServerId());
                     messageService.sendAlert(alert);
+                    updateHistory(history);
 
                 }
-                if(counter("Failed to create normal user",history) > 12){
+                if(counter("Failed to create normal user",history) > 14){
 
                     String message = "High amount of failed attempts to create a user.";
                     AlertSeverity severity = AlertSeverity.High;
                     Alert alert = new Alert(message,severity,new Date(),log.getServerId());
                     messageService.sendAlert(alert);
+                    updateHistory(history);
 
                 }
-                if(counter("Successfully created normal user",history) > 12){
+                if(counter("Successfully created normal user",history) > 14){
 
                     String message = "High amount of users are created.";
                     AlertSeverity severity = AlertSeverity.High;
                     Alert alert = new Alert(message,severity,new Date(),log.getServerId());
                     messageService.sendAlert(alert);
+                    updateHistory(history);
 
                 }
-                if(counter("Failed to  update user permissions",history) > 12){
+                if(counter("Failed to  update user permissions",history) > 14){
 
                     String  message = "High amount of failed attempts to update user.";
                     AlertSeverity severity = AlertSeverity.High;
                     Alert alert = new Alert(message,severity,new Date(),log.getServerId());
                     messageService.sendAlert(alert);
+                    updateHistory(history);
 
                 }
-                if(counter("Successfully updated user permissions",history) > 12){
+                if(counter("Successfully updated user permissions",history) > 14){
 
                     String message = "High amount of user updates.";
                     AlertSeverity severity = AlertSeverity.High;
                     Alert alert = new Alert(message,severity,new Date(),log.getServerId());
                     messageService.sendAlert(alert);
+                    updateHistory(history);
 
                 }
-                if(counter("Successfully updated security settings",history) > 12){
+                if(counter("Successfully updated security settings",history) > 14){
 
                     String message = "High amount of security changes.";
                     AlertSeverity severity = AlertSeverity.High;
                     Alert alert = new Alert(message,severity,new Date(),log.getServerId());
                     messageService.sendAlert(alert);
+                    updateHistory(history);
 
                 }
-                if(counter("Failed to update security settings",history) > 12){
+                if(counter("Failed to update security settings",history) > 14){
 
                     String message = "High amount of failed security configuration changes.";
                     AlertSeverity severity = AlertSeverity.High;
                     Alert alert = new Alert(message,severity,new Date(),log.getServerId());
                     messageService.sendAlert(alert);
+                    updateHistory(history);
 
                 }
                 break;
@@ -174,41 +199,65 @@ public class AnalysisService {
                 if(counter("Application startup",history) > 18){
                     String message = "High amount of application starting.";
                     AlertSeverity  severity = AlertSeverity.Low;
+                    Alert alert = new Alert(message,severity,new Date(),log.getServerId());
+                    messageService.sendAlert(alert);
+                    updateHistory(history);
 
                 }
                 if(counter("Application shutdown",history) > 18){
                     String message = "High amount of applications shutting down.";
                     AlertSeverity severity = AlertSeverity.Low;
+                    Alert alert = new Alert(message,severity,new Date(),log.getServerId());
+                    messageService.sendAlert(alert);
+                    updateHistory(history);
 
                 }
                 if(counter("Application encountered critical error",history) > 18){
                     String message = "High amount of critical errors.";
                     AlertSeverity severity = AlertSeverity.High;
+                    Alert alert = new Alert(message,severity,new Date(),log.getServerId());
+                    messageService.sendAlert(alert);
+                    updateHistory(history);
 
                 }
                 if(counter("Failed to update application configuration",history) > 18){
                     String message = "High amount of failed application configuration changed.";
                     AlertSeverity severity = AlertSeverity.Low;
+                    Alert alert = new Alert(message,severity,new Date(),log.getServerId());
+                    messageService.sendAlert(alert);
+                    updateHistory(history);
 
                 }
                 if(counter("Successfully updated application configuration",history) > 18){
                     String message = "High amount of application configuration changes.";
                     AlertSeverity severity = AlertSeverity.Low;
+                    Alert alert = new Alert(message,severity,new Date(),log.getServerId());
+                    messageService.sendAlert(alert);
+                    updateHistory(history);
 
                 }
                 if(counter("Application warning",history) > 18){
                     String message = "High amount of application warnings.";
                     AlertSeverity severity = AlertSeverity.Medium;
+                    Alert alert = new Alert(message,severity,new Date(),log.getServerId());
+                    messageService.sendAlert(alert);
+                    updateHistory(history);
 
                 }
                 if(counter("Service shutdown",history) > 18){
                     String message = "High amount of services shutting down.";
                     AlertSeverity  severity = AlertSeverity.Medium;
+                    Alert alert = new Alert(message,severity,new Date(),log.getServerId());
+                    messageService.sendAlert(alert);
+                    updateHistory(history);
 
                 }
                 if(counter("Service startup",history) > 18){
                     String message = "High amount of services.";
                     AlertSeverity severity = AlertSeverity.Medium;
+                    Alert alert = new Alert(message,severity,new Date(),log.getServerId());
+                    messageService.sendAlert(alert);
+                    updateHistory(history);
                 }
                 break;
         }

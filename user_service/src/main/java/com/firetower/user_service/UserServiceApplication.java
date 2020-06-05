@@ -41,7 +41,6 @@ public class UserServiceApplication {
     @Configuration
     class RestTemplateConfig {
         @Bean
-        @LoadBalanced
         public RestTemplate restTemplate() {
             return new RestTemplate();
         }

@@ -24,6 +24,15 @@ public class AnalysisService {
         this.metricRepository = metricRepository;
         this.messageService = messageService;
     }
+    private void updateHistory(List<Metric> history){
+
+        for (Metric index: history) {
+            index.setUsed(true);
+        }
+        metricRepository.saveAll(history);
+
+    }
+
     public void Analyse(Long serverId){
 
         AnalyseCpuMetric(serverId);
@@ -43,6 +52,7 @@ public class AnalysisService {
             Alert Alert = new Alert("Cpu metric is high",AlertSeverity.High,new Date(),serverId);
             messageService.sendAlert(Alert);
 
+            updateHistory(history);
         }
     }
 
@@ -55,7 +65,7 @@ public class AnalysisService {
 
             Alert Alert = new Alert("RAM metric is high",AlertSeverity.High,new Date(),serverId);
             messageService.sendAlert(Alert);
-
+            updateHistory(history);
         }
     }
     public void AnalyseHardDriveUsageMetric(Long serverId){
@@ -66,6 +76,7 @@ public class AnalysisService {
 
             Alert Alert = new Alert("Hardrive usage metric is high",AlertSeverity.Medium,new Date(),serverId);
             messageService.sendAlert(Alert);
+            updateHistory(history);
         }
 
     }
@@ -77,6 +88,7 @@ public class AnalysisService {
 
             Alert Alert = new Alert("network up metric is high",AlertSeverity.Low,new Date(),serverId);
             messageService.sendAlert(Alert);
+            updateHistory(history);
         }
 
     }
@@ -87,6 +99,7 @@ public class AnalysisService {
         if (average >= 1100){
             Alert Alert = new Alert("network down metric is high",AlertSeverity.High,new Date(),serverId);
             messageService.sendAlert(Alert);
+            updateHistory(history);
         }
     }
 
@@ -98,7 +111,7 @@ public class AnalysisService {
     }
 
     private List<Metric> getHistory(MetricType metricType, Date date){
-        return  metricRepository.findMetricsByMetricTypeAndDateAfter(metricType,date);
+        return  metricRepository.findMetricsByMetricTypeAndDateAfterAndUsed(metricType,date, false);
     }
 
     private Integer calculateAverage(List<Metric> history){

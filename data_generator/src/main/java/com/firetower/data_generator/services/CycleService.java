@@ -41,7 +41,7 @@ public class CycleService extends TimerTask {
         serverStates = new Hashtable<Server,ServerState>();
 
         // Make a call to the user service where x amount of users are generated.
-        users = this.generatorService.generateUser(15);
+        users = this.generatorService.generateUser(4);
 
         // for each user generate x amount of servers
         for (User user: users) {
