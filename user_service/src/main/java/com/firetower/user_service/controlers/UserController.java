@@ -63,4 +63,8 @@ public class UserController {
     public @ResponseBody Iterable<User> generateUsers(@RequestParam("amount") int amount)  throws IOException {
              return service.generateUsers(amount);
     }
+    @RequestMapping(value = RestURIConstant.delete, method = RequestMethod.DELETE)
+    public void deleteUser(@RequestParam("id") Long id){
+        service.deleteUser(id);
+    }
 }

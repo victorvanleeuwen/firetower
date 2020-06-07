@@ -5,7 +5,9 @@ package com.firetower.user_service.services;
 import com.firetower.user_service.common.models.User;
 import com.firetower.user_service.common.security.UserRole;
 import com.firetower.user_service.common.utils.RandomUtil;
+import com.firetower.user_service.rabbitmq.RabbitMessenger;
 import com.firetower.user_service.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -23,6 +25,8 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    @Autowired
+    private RabbitMessenger rabbitMessenger;
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -41,6 +45,12 @@ public class UserService {
     public Long idByEmail(String email){
         User user = userRepository.findUserByEmail(email);
         return user.getId();
+    }
+
+    public void deleteUser(Long id){
+        rabbitMessenger.deleteUser(id);
+        User user = userRepository.findUserById(id);
+        userRepository.delete(user);
     }
 
     public void newUsers(List<User> users){
