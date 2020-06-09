@@ -9,4 +9,6 @@ public class RestURIConstant {
     public static final String newUsers = "/users";
     public static final String generate = "/generate";
     public static final String getId = "/getId";
+    public static final String delete = "/delete";
+    public static final String register = "/register";
 }

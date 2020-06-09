@@ -15,5 +15,5 @@ public interface LogRepository extends CrudRepository<Log,Long> {
 
     List<Log> findLogsByServerId (Long serverId);
 
-    List<Log> findLogsByServerIdAndAndDateAfter (Long serverId, Date date);
+    List<Log> findLogsByServerIdAndAndDateAfterAndUsed (Long serverId, Date date, Boolean used);
 }

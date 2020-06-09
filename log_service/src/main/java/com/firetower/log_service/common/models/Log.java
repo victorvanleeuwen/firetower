@@ -26,6 +26,8 @@ public class Log {
     @Column(nullable = false)
     private String LogMessage;
 
+    private Boolean used;
+
     @Column
     private LogType logType;
 
@@ -33,6 +35,7 @@ public class Log {
         this.date = date;
         this.operatingSystemType = operatingSystemType;
         this.serverId = server_id;
+        this.used = false;
 
         LogMessage = logMessage;
         this.logType = logType;
@@ -76,4 +79,13 @@ public class Log {
     public LogType getLogType() {
         return logType;
     }
+
+    public Boolean getUsed() {
+        return used;
+    }
+
+    public void setUsed(Boolean used) {
+        this.used = used;
+    }
+
 }

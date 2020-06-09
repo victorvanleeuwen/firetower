@@ -30,6 +30,11 @@ public class LogService {
         return logRepository.findLogById(id);
     }
 
+    public void deleteLogsWithServerId(Long id){
+        List<Log> logs = logRepository.findLogsByServerId(id);
+        logRepository.deleteAll(logs);
+    }
+
     public Log newLog(Log Log){
         Log output = logRepository.save(Log);
         analysisService.analyseLog(output);

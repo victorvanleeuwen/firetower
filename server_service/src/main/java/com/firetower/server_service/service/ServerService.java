@@ -4,6 +4,7 @@ package com.firetower.server_service.service;
 import com.firetower.server_service.common.enums.OperatingSystemType;
 import com.firetower.server_service.common.models.Server;
 import com.firetower.server_service.common.utils.RandomUtil;
+import com.firetower.server_service.rabbitmq.RabbitMessenger;
 import com.firetower.server_service.repositories.ServerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,9 @@ public class ServerService {
 
     private final ServerRepository serverRepository;
 
+    @Autowired
+    private RabbitMessenger messenger;
+
     public ServerService(ServerRepository serverRepository) {
         this.serverRepository = serverRepository;
     }
@@ -45,6 +49,20 @@ public class ServerService {
         Long id = restTemplate.getForObject("http://user-service//getId?email="+email, Long.class);
         return serverRepository.findServersByUserId(id);
         
+    }
+    public void deleteServersWithUserId(Long Id){
+        
+        List<Server> servers = serverRepository.findServersByUserId(Id);
+        for (Server server: servers) {
+            messenger.deleteserver(server.getId());
+        }
+        serverRepository.deleteAll(servers);
+
+    }
+    
+    public void deleteServerWithServerId(Long id){
+        messenger.deleteserver(id);
+        serverRepository.delete(serverRepository.findServerById(id)); 
     }
 
     public Server newServer(Server server){

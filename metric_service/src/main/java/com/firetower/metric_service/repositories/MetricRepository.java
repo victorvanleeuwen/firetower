@@ -15,7 +15,7 @@ public interface MetricRepository extends CrudRepository<Metric, Long> {
 
     List<Metric> findMetricsByServerId (Long server_id);
 
-    List<Metric> findMetricsByMetricTypeAndDateAfter(MetricType metricType, Date date);
+    List<Metric> findMetricsByMetricTypeAndDateAfterAndUsed(MetricType metricType, Date date, Boolean used);
     //Metric findTopByOrdAndServerIdAndAndMetricType(Long server_id, MetricType metricType);
 
     Metric findTopByMetricTypeAndServerIdOrderByDateDesc(MetricType metricType, Long server_id);

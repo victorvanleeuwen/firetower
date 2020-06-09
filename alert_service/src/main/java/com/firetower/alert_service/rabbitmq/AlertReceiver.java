@@ -23,6 +23,5 @@ public class AlertReceiver {
 
         alertService.newAlert(alert);
 
-
     }
 }

@@ -29,10 +29,13 @@ public class Log {
 
     private LogType logType;
 
+    private Boolean used;
+
     public Log(Date date, OperatingSystemType operatingSystemType, Long server_id, String logMessage, LogType logType){
         this.date = date;
         this.operatingSystemType = operatingSystemType;
         this.serverId = server_id;
+        this.used = false;
 
         LogMessage = logMessage;
         this.logType = logType;
@@ -75,5 +78,13 @@ public class Log {
 
     public LogType getLogType() {
         return logType;
+    }
+
+    public Boolean getUsed() {
+        return used;
+    }
+
+    public void setUsed(Boolean used) {
+        this.used = used;
     }
 }

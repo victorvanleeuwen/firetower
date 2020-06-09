@@ -44,9 +44,6 @@ public class DataGeneratorApplication {
             StateService stateService = new StateService();
             CycleService cycleService = new CycleService(generatorService,stateService,messaginservice, rabbitMessenger );
             timer.scheduleAtFixedRate(cycleService,(long)0,(long)6000); //tick every minute
-
         };
-
     }
-
 }

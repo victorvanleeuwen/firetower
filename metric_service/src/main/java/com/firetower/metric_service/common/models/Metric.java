@@ -24,6 +24,8 @@ public class Metric {
 
     private Integer value;
 
+    private Boolean used;
+
     @Column(nullable = false)
     private Long serverId;
 
@@ -80,5 +82,13 @@ public class Metric {
 
     public Long getId() {
         return id;
+    }
+
+    public Boolean getUsed() {
+        return used;
+    }
+
+    public void setUsed(Boolean used) {
+        this.used = used;
     }
 }

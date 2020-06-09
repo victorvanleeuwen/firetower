@@ -1,15 +1,18 @@
 package com.firetower.user_service.controlers;
 
+import com.firetower.user_service.common.DTO.RegisterDTO;
+import com.firetower.user_service.common.DTO.UserDTO;
 import com.firetower.user_service.common.models.User;
 import com.firetower.user_service.services.UserService;
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
 
-@Controller
+@RestController
 public class UserController {
 
     private final UserService service;
@@ -44,10 +47,11 @@ public class UserController {
 
     @RequestMapping(value = RestURIConstant.currentUser, method = RequestMethod.GET)
     public @ResponseBody
-    User current(Authentication authentication) {
-        System.out.println(authentication);
-        return null;
-    }
+    UserDTO current(Authentication authentication) {
+        final org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        final String email = (String) auth.getPrincipal();
+        return service.getUserDTO(email);
+     }
 
     @RequestMapping(value = RestURIConstant.userByEmail, method = RequestMethod.GET)
     public @ResponseBody User getUserByCode(@RequestParam("email") String email){
@@ -62,5 +66,14 @@ public class UserController {
     @RequestMapping(value = RestURIConstant.generate,method = RequestMethod.GET)
     public @ResponseBody Iterable<User> generateUsers(@RequestParam("amount") int amount)  throws IOException {
              return service.generateUsers(amount);
+    }
+    @RequestMapping(value = RestURIConstant.delete, method = RequestMethod.DELETE)
+    public void deleteUser(@RequestParam("id") Long id){
+        service.deleteUser(id);
+    }
+
+    @RequestMapping(value= RestURIConstant.register, method = RequestMethod.POST)
+    public void register(@RequestBody RegisterDTO user){
+        service.register(user);
     }
 }

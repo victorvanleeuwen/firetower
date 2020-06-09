@@ -4,6 +4,7 @@ package com.firetower.user_service;
 
 import com.firetower.user_service.common.models.User;
 import com.firetower.user_service.repositories.UserRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -26,6 +27,11 @@ import static com.firetower.user_service.common.security.UserRole.USER;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class UserServiceApplication {
 
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
+    }
+
     public static void main(String[] args) {
         SpringApplication.run(UserServiceApplication.class, args);
     }
@@ -41,7 +47,6 @@ public class UserServiceApplication {
     @Configuration
     class RestTemplateConfig {
         @Bean
-        @LoadBalanced
         public RestTemplate restTemplate() {
             return new RestTemplate();
         }

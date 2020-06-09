@@ -36,6 +36,10 @@ public class MetricService {
         }
         return result;
     }
+    public void deleteMetricsByServerId(Long id){
+        List<Metric> metrics = metricRepository.findMetricsByServerId(id);
+        metricRepository.deleteAll(metrics);
+    }
 
     public Metric findMetricById(Long id){
         return metricRepository.findMetricById(id);
