@@ -56,5 +56,9 @@ public class ServerController {
     public void generateServers(@RequestParam("id") Long id,@RequestParam("amount") Integer amount) throws IOException {
           serverService.generateServers(id,amount);
     }
-
+    
+    @RequestMapping(value = RestUriConstant.delete, method = RequestMethod.DELETE)
+    public void deleteServers(@RequestParam("id") Long id){
+        serverService.deleteServerWithServerId(id);
+    }
 }

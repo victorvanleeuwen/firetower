@@ -20,6 +20,6 @@ public class UserReceiver {
     public void receive(Long id) {
 
         log.info("Deleting servers of user: " + id);
-        service.deleteServersWithId(id);
+        service.deleteServersWithUserId(id);
     }
 }

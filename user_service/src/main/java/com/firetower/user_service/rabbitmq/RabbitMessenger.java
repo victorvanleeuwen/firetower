@@ -17,6 +17,7 @@ public class RabbitMessenger {
 
 
     public void deleteUser(Long id){
+        System.out.println("deleting user");
         rabbittemplate.convertAndSend(serverExchange,serverRoutingkey,id);
     }
 }

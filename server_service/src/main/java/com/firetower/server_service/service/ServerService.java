@@ -50,14 +50,19 @@ public class ServerService {
         return serverRepository.findServersByUserId(id);
         
     }
-    public void deleteServersWithId(Long Id){
-
-        messenger.deleteServer(Id);
+    public void deleteServersWithUserId(Long Id){
+        
         List<Server> servers = serverRepository.findServersByUserId(Id);
+        for (Server server: servers) {
+            messenger.deleteserver(server.getId());
+        }
         serverRepository.deleteAll(servers);
 
-
-
+    }
+    
+    public void deleteServerWithServerId(Long id){
+        messenger.deleteserver(id);
+        serverRepository.delete(serverRepository.findServerById(id)); 
     }
 
     public Server newServer(Server server){
