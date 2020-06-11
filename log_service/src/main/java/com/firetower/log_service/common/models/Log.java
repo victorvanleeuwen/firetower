@@ -88,4 +88,7 @@ public class Log {
         this.used = used;
     }
 
+    public Long getId() {
+        return id;
+    }
 }
