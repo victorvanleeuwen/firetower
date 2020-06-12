@@ -32,7 +32,7 @@ public class ServerController {
     }
 
     @RequestMapping(value = RestUriConstant.servers, method = RequestMethod.GET)
-    public @ResponseBody List<Server> getServers(){
+    public @ResponseBody List<Server> getServers() throws IOException{
         final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         final String email = (String) auth.getPrincipal();
         return serverService.getServers(email);
@@ -58,7 +58,7 @@ public class ServerController {
     }
     
     @RequestMapping(value = RestUriConstant.delete, method = RequestMethod.DELETE)
-    public void deleteServers(@RequestParam("id") Long id){
-        serverService.deleteServerWithServerId(id);
+    public String deleteServers(@RequestParam("id") Long id){
+       return serverService.deleteServerWithServerId(id);
     }
 }

@@ -2,8 +2,12 @@ package com.firetower.auth_service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.firetower.auth_service.common.security.JwtConfig;
+import com.firetower.auth_service.services.LogService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.logging.LogLevel;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -18,12 +22,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
+    @Autowired
+    private LogService log;
+
+    private ObjectMapper objectMapper = new ObjectMapper();
     // We use auth manager to validate the user credentials
+
     private AuthenticationManager authManager;
 
     private final JwtConfig jwtConfig;
@@ -77,6 +89,28 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
         // Add token to header
         response.addHeader(jwtConfig.getHeader(), jwtConfig.getPrefix() + token);
     }
+    @Override
+    public void unsuccessfulAuthentication(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            AuthenticationException exception)
+            throws IOException, ServletException {
+
+        log.log(LogLevel.ERROR,"Authentication failure");
+
+        response.setStatus(HttpStatus.UNAUTHORIZED.value());
+        Map<String, Object> data = new HashMap<>();
+        data.put(
+                "timestamp",
+                Calendar.getInstance().getTime());
+        data.put(
+                "exception",
+                exception.getMessage());
+
+        response.getOutputStream()
+                .println(objectMapper.writeValueAsString(data));
+    }
+
 
     // A (temporary) class just to represent the user credentials
     private static class UserCredentials {

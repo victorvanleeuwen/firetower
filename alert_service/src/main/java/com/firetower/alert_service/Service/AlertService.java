@@ -38,8 +38,15 @@ public class AlertService {
           return alertRepository.save(newalert);
     }
 
-    public void deleteAlert(Long id){
-        alertRepository.delete(alertRepository.findAlertById(id));
+    public String deleteAlert(Long id){
+        try{
+            alertRepository.delete(alertRepository.findAlertById(id));
+            return "succes";
+        }
+        catch (Exception e){
+            return "failed";
+        }
+
     }
     public Iterable<Alert> all(){
         return alertRepository.findAll();

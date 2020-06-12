@@ -6,7 +6,9 @@ import com.firetower.server_service.common.models.Server;
 import com.firetower.server_service.common.utils.RandomUtil;
 import com.firetower.server_service.rabbitmq.RabbitMessenger;
 import com.firetower.server_service.repositories.ServerRepository;
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.logging.LogLevel;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -27,6 +29,9 @@ public class ServerService {
     private final ServerRepository serverRepository;
 
     @Autowired
+    private LogService log;
+
+    @Autowired
     private RabbitMessenger messenger;
 
     public ServerService(ServerRepository serverRepository) {
@@ -44,11 +49,17 @@ public class ServerService {
         return serverRepository.findServerById(Id);
     }
     
-    public List<Server> getServers(String email){
+    public List<Server> getServers(String email) throws  IOException{
+        try{
+            Long id = restTemplate.getForObject("http://user-service//getId?email="+email, Long.class);
+            return serverRepository.findServersByUserId(id);
+        }
+        catch(Exception e)
+        {
+            log.log(LogLevel.ERROR,"Failed to retrieve servers");
+            throw new IOException(e.getMessage());
+        }
 
-        Long id = restTemplate.getForObject("http://user-service//getId?email="+email, Long.class);
-        return serverRepository.findServersByUserId(id);
-        
     }
     public void deleteServersWithUserId(Long Id){
         
@@ -60,9 +71,17 @@ public class ServerService {
 
     }
     
-    public void deleteServerWithServerId(Long id){
-        messenger.deleteserver(id);
-        serverRepository.delete(serverRepository.findServerById(id)); 
+    public String deleteServerWithServerId(Long id){
+
+        try{
+            messenger.deleteserver(id);
+            serverRepository.delete(serverRepository.findServerById(id));
+            return "succes";
+        }
+        catch (Exception e){
+            return "failed";
+        }
+
     }
 
     public Server newServer(Server server){
@@ -75,22 +94,27 @@ public class ServerService {
 
     public void generateServers(Long id,int amount) throws IOException {
 
-        Stream<String> serverlines = Files.lines(Paths.get("./server_service/src/main/java/com/firetower/server_service/servernames.txt"));
-        List<String> servernames = serverlines.collect(Collectors.toList());
+        try{
+            Stream<String> serverlines = Files.lines(Paths.get("./server_service/src/main/java/com/firetower/server_service/servernames.txt"));
+            List<String> servernames = serverlines.collect(Collectors.toList());
 
 
 
-        List<Server> servers = new ArrayList<Server>();
-        Integer i = 0;
-        while (i < amount) {
-            String name = (String) RandomUtil.getRandomElement(servernames);
-            String ip = RandomUtil.generateRandomIp();
-            OperatingSystemType os = RandomUtil.randomEnum(OperatingSystemType.class);
-            Server server = new Server(name,ip,id,os,true);
-            serverRepository.save(server);
-            System.out.println("generated server");
-            i++;
+            List<Server> servers = new ArrayList<Server>();
+            Integer i = 0;
+            while (i < amount) {
+                String name = (String) RandomUtil.getRandomElement(servernames);
+                String ip = RandomUtil.generateRandomIp();
+                OperatingSystemType os = RandomUtil.randomEnum(OperatingSystemType.class);
+                Server server = new Server(name,ip,id,os,true);
+                serverRepository.save(server);
+                System.out.println("generated server");
+                i++;
+            }
         }
-
+        catch (Exception e){
+            log.log(LogLevel.ERROR,"Failed to generate servers");
+            throw new IOException(e.getMessage());
+        }
     }
 }
