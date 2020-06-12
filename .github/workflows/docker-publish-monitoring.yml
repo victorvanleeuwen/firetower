@@ -1,4 +1,4 @@
-name: build and publish alert image
+name: build and publish monitoring image
 
 on:
   push:
