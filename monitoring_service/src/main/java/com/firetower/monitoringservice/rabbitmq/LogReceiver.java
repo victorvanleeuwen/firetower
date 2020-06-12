@@ -14,7 +14,7 @@ public class LogReceiver {
     @Autowired
     private LogObjectRepository repo;
 
-    @RabbitListener(queues = "${firetower.rabbitmq.monitor.queue}")
+    @RabbitListener(queues = "firetower.monitor.queue")
     public void receive(LogObject log) {
 
         repo.save(log);

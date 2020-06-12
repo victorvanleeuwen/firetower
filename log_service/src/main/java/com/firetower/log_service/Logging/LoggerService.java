@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 
 @Service
-public class LogService {
+public class LoggerService {
 
     @Autowired
     private AmqpTemplate rabbittemplate;
@@ -23,9 +23,9 @@ public class LogService {
     @Value("${firetower.rabbitmq.monitor.routingkey}")
     private String Routingkey;
 
-    private final Logger log = LoggerFactory.getLogger(LogService.class);
+    private final Logger log = LoggerFactory.getLogger(LoggerService.class);
 
-    public LogService() {
+    public LoggerService() {
 
     }
     public void log(LogLevel type, String message){

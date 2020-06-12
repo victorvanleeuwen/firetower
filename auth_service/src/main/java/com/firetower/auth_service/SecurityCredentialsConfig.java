@@ -1,6 +1,8 @@
 package com.firetower.auth_service;
 
+import com.firetower.auth_service.common.models.LogObject;
 import com.firetower.auth_service.common.security.JwtConfig;
+import com.firetower.auth_service.services.LogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -12,7 +14,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -25,6 +26,9 @@ public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private JwtConfig jwtConfig;
+
+    @Autowired
+    private LogService log;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -41,7 +45,7 @@ public class SecurityCredentialsConfig extends WebSecurityConfigurerAdapter {
                 // What's the authenticationManager()?
                 // An object provided by WebSecurityConfigurerAdapter, used to authenticate the user passing user's credentials
                 // The filter needs this auth manager to authenticate the user.
-                .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig))
+                .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(log,authenticationManager(), jwtConfig))
                 .authorizeRequests()
                 // allow all POST requests
                 .antMatchers(HttpMethod.POST, jwtConfig.getUri()).permitAll()
