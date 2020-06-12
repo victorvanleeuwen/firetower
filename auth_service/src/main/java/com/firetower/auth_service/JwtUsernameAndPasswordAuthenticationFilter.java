@@ -14,7 +14,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -30,7 +29,7 @@ import java.util.stream.Collectors;
 
 public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-    @Autowired
+
     private LogService log;
 
     private ObjectMapper objectMapper = new ObjectMapper();
@@ -40,10 +39,11 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 
     private final JwtConfig jwtConfig;
 
-    public JwtUsernameAndPasswordAuthenticationFilter(AuthenticationManager authManager, JwtConfig jwtConfig) {
+    @Autowired
+    public JwtUsernameAndPasswordAuthenticationFilter(LogService log, AuthenticationManager authManager, JwtConfig jwtConfig) {
+        this.log = log;
         this.authManager = authManager;
         this.jwtConfig = jwtConfig;
-
     }
 
     @Override

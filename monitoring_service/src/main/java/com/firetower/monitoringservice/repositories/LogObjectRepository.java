@@ -11,4 +11,5 @@ import java.util.List;
 @Repository
 public interface LogObjectRepository extends CrudRepository<LogObject,Long> {
 
+
 }
