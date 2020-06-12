@@ -27,7 +27,6 @@ public class DataGeneratorApplication {
     @Configuration
     class RestTemplateConfig {
         @Bean
-        @LoadBalanced
         public RestTemplate restTemplate() {
             return new RestTemplate();
         }

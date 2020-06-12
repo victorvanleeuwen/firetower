@@ -25,7 +25,6 @@ public class MetricServiceApplication {
     @Configuration
     class RestTemplateConfig {
         @Bean
-        @LoadBalanced
         public RestTemplate restTemplate() {
             return new RestTemplate();
         }

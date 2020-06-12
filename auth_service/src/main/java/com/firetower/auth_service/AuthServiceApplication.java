@@ -22,7 +22,6 @@ public class AuthServiceApplication {
 
         // Create a bean for restTemplate to call services
         @Bean
-        @LoadBalanced
         public RestTemplate restTemplate() {
             return new RestTemplate();
         }

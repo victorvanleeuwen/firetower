@@ -25,7 +25,6 @@ public class ServerServiceApplication {
 
         // Create a bean for restTemplate to call services
         @Bean
-        @LoadBalanced// Load balance between service instances running at different ports.
         public RestTemplate restTemplate() {
             return new RestTemplate();
         }
