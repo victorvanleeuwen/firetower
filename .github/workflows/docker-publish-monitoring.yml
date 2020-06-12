@@ -1,0 +1,61 @@
+name: build and publish monitoring image
+
+on:
+  push:
+    branches:
+      - 'master'
+
+jobs:
+
+  test:
+    name: Test - Units & Integrations
+    runs-on: ubuntu-18.04
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up JDK 13
+        uses: actions/setup-java@v1
+        with:
+          java-version: 13.0.2
+
+      - name: Maven Package
+        run: mvn -B install --file pom.xml -DskipTests
+        working-directory: ./monitoring_service
+
+      - name: upload jar
+        uses: actions/upload-artifact@v1
+        with:
+          name: jarpack
+          path: ./monitoring_service/target/monitoring-service.jar
+
+
+  docker:
+    name: Publish - Docker Hub
+    runs-on: ubuntu-18.04
+    needs: [test]
+    env:
+      REPO: ${{ secrets.MONITORING_REPO }}
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up JDK 13
+        uses: actions/setup-java@v1
+        with:
+          java-version: 13.0.2
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
+        working-directory: ./monitoring_service
+
+      - name: Download jar for job 2
+        uses: actions/download-artifact@v1
+        with:
+          name: jarpack
+
+
+
+      - name: Build Docker image
+        run: docker build . -t $REPO:latest -t $REPO:${GITHUB_SHA::8} -f ./monitoring_service/Dockerfile
+      - name: Publish Docker image
+        run: docker push $REPO
+        working-directory: ./monitoring_service
+

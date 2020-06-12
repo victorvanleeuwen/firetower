@@ -12,6 +12,7 @@ import com.firetower.user_service.rabbitmq.RabbitMessenger;
 import com.firetower.user_service.repositories.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.logging.LogLevel;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -30,6 +31,8 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
+    @Autowired
+    private LogService log;
 
     @Autowired
     private RabbitMessenger rabbitMessenger;
@@ -59,47 +62,68 @@ public class UserService {
         return user.getId();
     }
 
-    public void deleteUser(Long id){
-        System.out.println("In delete function");
-        rabbitMessenger.deleteUser(id);
-        User user = userRepository.findUserById(id);
-        userRepository.delete(user);
-    }
-    public void register(RegisterDTO user){
-        final Pattern Email = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-
-
-        if (user == null) throw new IllegalArgumentException("The user object is not allowed to be null.");
-
-        if (user.getEmail().isEmpty() || user.getEmail() == null) {
-            throw new IllegalArgumentException("Email can`t be empty or null");
+    public String deleteUser(Long id){
+        try{
+            System.out.println("In delete function");
+            rabbitMessenger.deleteUser(id);
+            User user = userRepository.findUserById(id);
+            userRepository.delete(user);
+            return "succes";
         }
-
-        if (user.getPassword().isEmpty() || user.getPassword() == null) {
-            throw new IllegalArgumentException("Password can`t be empty or null");
+        catch (Exception e){
+            return "failed";
         }
-        if (user.getPassword().length() < 8) {
-            throw new BadRequestException("Password must be at least 8 characters");
-        }
-        if (!Email.matcher(user.getEmail()).find()) {
-            throw new IllegalArgumentException("The email should be a valid email address.");
-        }
-
-     User Newuser = modelMapper.map(user,User.class);
-     Newuser.setAuthorities(USER.getGrantedAuthorities());
-     Newuser.setEnabled(true);
-     Newuser.setAccountNonExpired(true);
-     Newuser.setAccountNonLocked(true);
-     Newuser.setCredentialsNonExpired(true);
-
-
-     Newuser.setPassword( new AuthenticationUtils().encode(user.getPassword()));
-     userRepository.save(Newuser);
 
     }
+    public String register(RegisterDTO user){
+        try {
+            final Pattern Email = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
-    public void newUsers(List<User> users){
-        userRepository.saveAll(users);
+
+            if (user == null) throw new IllegalArgumentException("The user object is not allowed to be null.");
+
+            if (user.getEmail().isEmpty() || user.getEmail() == null) {
+                throw new IllegalArgumentException("Email can`t be empty or null");
+            }
+
+            if (user.getPassword().isEmpty() || user.getPassword() == null) {
+                throw new IllegalArgumentException("Password can`t be empty or null");
+            }
+            if (user.getPassword().length() < 8) {
+                throw new BadRequestException("Password must be at least 8 characters");
+            }
+            if (!Email.matcher(user.getEmail()).find()) {
+                throw new IllegalArgumentException("The email should be a valid email address.");
+            }
+
+            User Newuser = modelMapper.map(user,User.class);
+            Newuser.setAuthorities(USER.getGrantedAuthorities());
+            Newuser.setEnabled(true);
+            Newuser.setAccountNonExpired(true);
+            Newuser.setAccountNonLocked(true);
+            Newuser.setCredentialsNonExpired(true);
+
+
+            Newuser.setPassword( new AuthenticationUtils().encode(user.getPassword()));
+            userRepository.save(Newuser);
+            return "succes";
+        }
+        catch (Exception e){
+            return "failed";
+        }
+
+
+    }
+
+    public String newUsers(List<User> users){
+        try {
+            userRepository.saveAll(users);
+            return "succes";
+        }
+        catch (Exception e){
+            return "failed";
+        }
+
     }
 
     public Iterable<User> generateUsers(int amount) throws IOException {
@@ -129,7 +153,9 @@ public class UserService {
             return userRepository.findAll();
         }
         catch (Exception e){
+            log.log(LogLevel.ERROR,"Failed to generate users");
             throw new IOException(e.getMessage());
+
         }
 
     }

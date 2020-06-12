@@ -59,8 +59,8 @@ public class UserController {
     }
 
     @RequestMapping(value =RestURIConstant.newUsers ,method = RequestMethod.POST)
-    public void newUsers(@RequestBody List<User> users){
-        service.newUsers(users);
+    public String newUsers(@RequestBody List<User> users){
+         return service.newUsers(users);
     }
 
     @RequestMapping(value = RestURIConstant.generate,method = RequestMethod.GET)
@@ -68,12 +68,12 @@ public class UserController {
              return service.generateUsers(amount);
     }
     @RequestMapping(value = RestURIConstant.delete, method = RequestMethod.DELETE)
-    public void deleteUser(@RequestParam("id") Long id){
-        service.deleteUser(id);
+    public String deleteUser(@RequestParam("id") Long id){
+       return  service.deleteUser(id);
     }
 
     @RequestMapping(value= RestURIConstant.register, method = RequestMethod.POST)
-    public void register(@RequestBody RegisterDTO user){
-        service.register(user);
+    public String register(@RequestBody RegisterDTO user){
+       return service.register(user);
     }
 }

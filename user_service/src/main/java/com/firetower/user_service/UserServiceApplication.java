@@ -19,6 +19,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.client.RestTemplate;
 
+import static com.firetower.user_service.common.security.UserRole.ADMIN;
 import static com.firetower.user_service.common.security.UserRole.USER;
 
 
@@ -40,7 +41,7 @@ public class UserServiceApplication {
     public CommandLineRunner demo(UserRepository userRepository,PasswordEncoder passwordEncoder) {
         return args -> {
 
-            User user1 = new User("Gigazoom.inc","rkaines0@tinypic.com",passwordEncoder.encode("testing"),true,true,true,true, USER.getGrantedAuthorities());user1 = userRepository.save(user1);
+            User user1 = new User("Victor","victor@firetower.com",passwordEncoder.encode("testing"),true,true,true,true, ADMIN.getGrantedAuthorities());user1 = userRepository.save(user1);
         };
     }
 

@@ -3,12 +3,13 @@ gateway-server: 8762
 
 
 
-user-service:   9000
-auth-service:   9010
-common-service: 9020
-server-service: 9030
-log-service:    9040
-metric-service: 9050
-data-generator: 9060
-alert_service:  9070
+user-service:       9000
+auth-service:       9010
+common-service:     9020
+server-service:     9030
+log-service:        9040
+metric-service:     9050
+data-generator:     9060
+alert_service:      9070
+monitoring-service: 9080
 
