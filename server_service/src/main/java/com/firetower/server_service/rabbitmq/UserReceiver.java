@@ -16,7 +16,7 @@ public class UserReceiver {
     private Logger log = LoggerFactory.getLogger(UserReceiver.class);
 
 
-    @RabbitListener(queues = "${firetower.rabbitmq.user.queue}")
+    @RabbitListener(queues = "firetower.user.queue")
     public void receive(Long id) {
 
         log.info("Deleting servers of user: " + id);
