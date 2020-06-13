@@ -10,6 +10,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.data.rest.RepositoryRestMvcAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +19,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.client.RestTemplate;
+
+import java.time.Duration;
 
 import static com.firetower.user_service.common.security.UserRole.ADMIN;
 import static com.firetower.user_service.common.security.UserRole.USER;
@@ -45,11 +48,11 @@ public class UserServiceApplication {
         };
     }
 
-    @Configuration
-    class RestTemplateConfig {
-        @Bean
-        public RestTemplate restTemplate() {
-            return new RestTemplate();
-        }
+    @Bean       // Do not (!!!!!) load balance between service instances running at different ports.
+    public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
+        Duration time = Duration.ofMinutes(1);
+        return restTemplateBuilder
+                .setReadTimeout(time)
+                .build();
     }
 }
