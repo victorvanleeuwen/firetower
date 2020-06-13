@@ -1,15 +1,14 @@
-eureka-server:  8761
-gateway-server: 8762
+eureka-server:      8761              x  10.64.12.140  34.105.137.158
+gateway-server:     8762              x  10.64.3.150   34.105.251.247
+rabbit:             15672, 5672       x  10.64.11.58
 
 
-
-user-service:       9000
-auth-service:       9010
-common-service:     9020
-server-service:     9030
-log-service:        9040
-metric-service:     9050
-data-generator:     9060
-alert_service:      9070
-monitoring-service: 9080
+user-service:       9000              x  10.64.5.115
+auth-service:       9010              x  10.64.3.15
+server-service:     9030              x  10.64.1.248
+log-service:        9040              x  10.64.5.39
+metric-service:     9050              x  10.64.8.16
+data-generator:     9060              x  10.64.1.180
+alert_service:      9070              x  10.64.5.139
+monitoring-service: 9080              x  10.64.1.129
 

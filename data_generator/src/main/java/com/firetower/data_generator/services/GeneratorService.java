@@ -4,6 +4,7 @@ package com.firetower.data_generator.services;
 import com.firetower.data_generator.common.enums.LogType;
 import com.firetower.data_generator.common.enums.MetricType;
 import com.firetower.data_generator.common.models.*;
+import com.firetower.data_generator.common.utils.HostProvider;
 import com.firetower.data_generator.models.LogProfile;
 import com.firetower.data_generator.models.MetricProfile;
 import com.firetower.data_generator.models.ServerState;
@@ -35,7 +36,7 @@ public class GeneratorService {
     public void startGeneration(Long userId, Integer amount){
 
 
-        restTemplate.getForEntity("http://server-service/generate?id="+userId+"&amount="+amount,String.class);
+        restTemplate.getForEntity(HostProvider.getServerService()+"generate?id="+userId+"&amount="+amount,String.class);
 
 
     }
@@ -47,7 +48,7 @@ public class GeneratorService {
 
 
 
-            ResponseEntity<Server[]> response = restTemplate.getForEntity("http://server-service/all",Server[].class);
+            ResponseEntity<Server[]> response = restTemplate.getForEntity(HostProvider.getServerService()+"all",Server[].class);
             Server[] servers = response.getBody();
             ArrayList<Server> result = new ArrayList<Server>(Arrays.asList(servers));
             return result;
@@ -57,7 +58,7 @@ public class GeneratorService {
 
 
         try {
-            ResponseEntity<User[]> response = restTemplate.getForEntity("http://user-service/generate?amount="+amount,User[].class);
+            ResponseEntity<User[]> response = restTemplate.getForEntity(HostProvider.getUserService()+"generate?amount="+amount,User[].class);
             User[] users = response.getBody();
             ArrayList<User> result = new ArrayList<User>(Arrays.asList(users));
             return result;

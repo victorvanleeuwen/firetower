@@ -3,6 +3,7 @@ package com.firetower.server_service.service;
 
 import com.firetower.server_service.common.enums.OperatingSystemType;
 import com.firetower.server_service.common.models.Server;
+import com.firetower.server_service.common.utils.HostProvider;
 import com.firetower.server_service.common.utils.RandomUtil;
 import com.firetower.server_service.rabbitmq.RabbitMessenger;
 import com.firetower.server_service.repositories.ServerRepository;
@@ -51,7 +52,7 @@ public class ServerService {
     
     public List<Server> getServers(String email) throws  IOException{
         try{
-            Long id = restTemplate.getForObject("http://user-service//getId?email="+email, Long.class);
+            Long id = restTemplate.getForObject(HostProvider.getUserService()+"/getId?email="+email, Long.class);
             return serverRepository.findServersByUserId(id);
         }
         catch(Exception e)
