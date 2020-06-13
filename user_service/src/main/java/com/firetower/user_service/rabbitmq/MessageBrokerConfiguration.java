@@ -19,20 +19,20 @@ public class MessageBrokerConfiguration {
     @Value("${firetower.rabbitmq.user.routingkey}")
     private String routingKey;
 
-    @Bean
-    public Queue queue() {
-        return new Queue(queueName);
-    }
-
-    @Bean
-    public DirectExchange exchange() {
-        return new DirectExchange(exchange);
-    }
-
-    @Bean
-    Binding binding(Queue queue, DirectExchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange).with(routingKey);
-    }
+//    @Bean
+//    public Queue queue() {
+//        return new Queue(queueName);
+//    }
+//
+//    @Bean
+//    public DirectExchange exchange() {
+//        return new DirectExchange(exchange);
+//    }
+//
+//    @Bean
+//    Binding binding(Queue queue, DirectExchange exchange) {
+//        return BindingBuilder.bind(queue).to(exchange).with(routingKey);
+//    }
 
     @Bean
     public MessageConverter jsonMessageConverter() {

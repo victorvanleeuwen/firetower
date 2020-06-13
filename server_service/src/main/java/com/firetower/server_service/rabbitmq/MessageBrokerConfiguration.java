@@ -27,6 +27,28 @@ public class MessageBrokerConfiguration {
     @Value("${firetower.rabbitmq.server.log.routingkey}")
     private String logRoutingKey;
 
+    @Value("${firetower.rabbitmq.user.queue}")
+    private String queueName;
+    @Value("${firetower.rabbitmq.user.exchange}")
+    private String exchange;
+    @Value("${firetower.rabbitmq.user.routingkey}")
+    private String routingKey;
+
+    @Bean
+    public Queue queue() {
+        return new Queue(queueName);
+    }
+
+    @Bean
+    public DirectExchange exchange() {
+        return new DirectExchange(exchange);
+    }
+
+    @Bean
+    Binding binding(Queue queue, DirectExchange exchange) {
+        return BindingBuilder.bind(queue).to(exchange).with(routingKey);
+    }
+
     @Bean
     public Queue metricQueue() {
         return new Queue(metricQueue);
