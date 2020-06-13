@@ -3,6 +3,7 @@ package com.firetower.data_generator.services;
 import com.firetower.data_generator.common.models.Log;
 import com.firetower.data_generator.common.models.Metric;
 import com.firetower.data_generator.common.models.MetricSet;
+import com.firetower.data_generator.common.utils.HostProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.logging.LogLevel;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +30,7 @@ public class Messaginservice {
     public void sendLogs(List<Log> input){
 
         try{
-            restTemplate.postForObject("http://log-service/newLogs",input,ResponseEntity.class);
+            restTemplate.postForObject(HostProvider.getLogService()+"newLogs",input,ResponseEntity.class);
         }
         catch (Exception e){
             log.log(LogLevel.ERROR,"Failed to send logs");
@@ -39,7 +40,7 @@ public class Messaginservice {
     public void sendmetrics(List<MetricSet>input) {
 
         try{
-            restTemplate.postForObject("http://metric-service/newMetrics",input,ResponseEntity.class);
+            restTemplate.postForObject(HostProvider.getMetricService()+"newMetrics",input,ResponseEntity.class);
         }
         catch (Exception e){
 

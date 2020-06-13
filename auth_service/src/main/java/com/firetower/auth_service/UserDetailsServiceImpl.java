@@ -1,6 +1,7 @@
 package com.firetower.auth_service;
 
 import com.firetower.auth_service.common.models.User;
+import com.firetower.auth_service.common.utils.HostProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -24,7 +25,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (username.isEmpty()){
             throw new IllegalArgumentException("email can't be empty");
         }
-        User user = restTemplate.getForObject("http://user-service/user?email="+username, User.class);
+        User user = restTemplate.getForObject(HostProvider.getUserService()+"user?email="+username, User.class);
         System.out.println(user);
         return user;
     }
