@@ -24,7 +24,7 @@ public class HostProvider {
     }
     public static String getServerService(){
         if(live){
-            return "http://10.64.3.15:9030/";
+            return "http://10.64.1.248:9030/";
         }
         else {
             return "http://localhost:9030/";
