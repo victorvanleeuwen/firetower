@@ -31,6 +31,10 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
+
+    private List<String> usernames = new ArrayList<>();
+    private List<String> passwords = new ArrayList<>();
+    private List<String> emails= new ArrayList<>();
     @Autowired
     private LogService log;
 
@@ -40,6 +44,10 @@ public class UserService {
     public UserService(UserRepository userRepository, ModelMapper modelMapper) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
+
+        this.usernames.add("Quatz");this.usernames.add("Edgetag");this.usernames.add("Youspan");this.usernames.add("Kwideo");this.usernames.add("Rhyzio");
+        this.passwords.add("Ppgpc7moK");this.passwords.add("S8QcmkV2kBF");this.passwords.add("qYEOB0x1747");this.passwords.add("ZcIec02");this.passwords.add("MuEYtEJPh");
+        this.emails.add("aaburrow0@marriott.com");this.emails.add("akondratowicz1@mayoclinic.com");this.emails.add("cpeacocke2@upenn.edu");this.emails.add("dsumshon3@de.vu");this.emails.add("mbrugden4@wiley.com");
     }
     public UserDTO getUserDTO(String email){
         User user = userRepository.findUserByEmail(email);
@@ -129,15 +137,6 @@ public class UserService {
     public Iterable<User> generateUsers(int amount) throws IOException {
 
         try {
-            Stream<String> userlines = Files.lines(Paths.get("./user_service/src/main/java/com/firetower/user_service/companynames.txt"));
-            List<String> usernames = userlines.collect(Collectors.toList());
-
-            Stream<String> passwordlines = Files.lines(Paths.get("./user_service/src/main/java/com/firetower/user_service/passwords.txt"));
-            List<String> passwords = passwordlines.collect(Collectors.toList());
-
-            Stream<String> emaillines = Files.lines(Paths.get("./user_service/src/main/java/com/firetower/user_service/emails.txt"));
-            List<String> emails = emaillines.collect(Collectors.toList());
-
             List<User> users = new ArrayList<User>();
             Integer i = 0;
             while (i < amount){

@@ -29,6 +29,8 @@ public class ServerService {
 
     private final ServerRepository serverRepository;
 
+    private List<String> servernames = new ArrayList<>();
+
     @Autowired
     private LogService log;
 
@@ -37,6 +39,8 @@ public class ServerService {
 
     public ServerService(ServerRepository serverRepository) {
         this.serverRepository = serverRepository;
+        this.servernames.add("EU-Webserver-Test");this.servernames.add("EU-Firewall-Production");this.servernames.add("EU-Router-Test");this.servernames.add("EU-Loadbalancer-Acceptation");this.servernames.add("EU-HypervisorServer-Production");
+        this.servernames.add("NA-Webserver-Acceptation");this.servernames.add("NA-HypervisorServer-Demo");this.servernames.add("NA-Gateway-Acceptation");this.servernames.add("NA-Proxyserver-Demo");this.servernames.add("OC-Authenticationserver-Test");
     }
 
     public Iterable<Server> allservers(){
@@ -96,10 +100,6 @@ public class ServerService {
     public void generateServers(Long id,int amount) throws IOException {
 
         try{
-            Stream<String> serverlines = Files.lines(Paths.get("./server_service/src/main/java/com/firetower/server_service/servernames.txt"));
-            List<String> servernames = serverlines.collect(Collectors.toList());
-
-
 
             List<Server> servers = new ArrayList<Server>();
             Integer i = 0;
