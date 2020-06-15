@@ -93,7 +93,7 @@ jobs:
     - name: Deploy
       run: |
         gcloud container clusters get-credentials $GKE_CLUSTER --zone $GKE_ZONE --project $GKE_PROJECT
-        kubectl set image deployment firetower-monitoring-service firetower-monitoring=$REPO:${GITHUB_SHA::8}
+        kubectl set image deployment firetower-monitoring firetower-monitoring-service=$REPO:${GITHUB_SHA::8}
     
       
     
