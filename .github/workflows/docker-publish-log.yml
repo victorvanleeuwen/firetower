@@ -3,7 +3,7 @@ name: build and publish log image
 on:
   push:
     branches:
-      - 'master'
+      - 'temp_test'
 
 jobs:
      

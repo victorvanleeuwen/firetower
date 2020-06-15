@@ -3,7 +3,7 @@ name: build and publish eureka image
 on:
   push:
     branches:
-      - 'master'
+      - 'temp_test'
 
 jobs:
      

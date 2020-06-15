@@ -3,7 +3,7 @@ name: build and publish alert image
 on:
   push:
     branches:
-      - 'master'
+      - 'temp_test'
 
 jobs:
      

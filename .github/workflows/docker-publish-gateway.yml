@@ -3,7 +3,7 @@ name: build and publish gateway image
 on:
   push:
     branches:
-      - 'master'
+      - 'temp_test'
 
 jobs:
      
