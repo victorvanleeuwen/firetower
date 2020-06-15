@@ -93,10 +93,7 @@ jobs:
     - name: Deploy
       run: |
         gcloud container clusters get-credentials $GKE_CLUSTER --zone $GKE_ZONE --project $GKE_PROJECT
-        ./kustomize edit set image $REPO:latest
-        ./kustomize build . | kubectl apply -f -
-        kubectl rollout status
-        kubectl get services -o wide
+        kubectl set image deployment firetower-monitoring firetower-monitoring=$REPO:${GITHUB_SHA::8}
     
       
     
