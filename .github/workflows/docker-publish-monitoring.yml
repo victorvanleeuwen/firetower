@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - 'master'
-
+# Environment variables available to all jobs and steps in this workflow
 jobs:
 
   test:
@@ -51,11 +51,56 @@ jobs:
         with:
           name: jarpack
 
-
-
       - name: Build Docker image
         run: docker build . -t $REPO:latest -t $REPO:${GITHUB_SHA::8} -f ./monitoring_service/Dockerfile
       - name: Publish Docker image
         run: docker push $REPO
         working-directory: ./monitoring_service
+      
+    
+    
+    
+  deploy:
+    name: Deploy to cloud
+    runs-on: ubuntu-18.04
+    needs: [test,docker]
+    env:
+      REPO: ${{ secrets.MONITORING_REPO }}
+      GKE_PROJECT: s63-4-276915
+      GKE_EMAIL: ${{ secrets.GKE_EMAIL }}
+      GKE_ZONE: europe-west2-a
+      GKE_CLUSTER: firetower
+    steps:
+          # Setup gcloud CLI
+    - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      with:
+        version: '270.0.0'
+        service_account_email: ${{ secrets.GKE_EMAIL }}
+        service_account_key: ${{ secrets.GKE_KEY }}
+      
+    - run: |
+        # Set up docker to authenticate
+        # via gcloud command-line tool.
+        gcloud auth configure-docker
+      
+    # Set up kustomize
+    - name: Set up Kustomize
+      run: |
+        curl -o kustomize --location https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
+        chmod u+x ./kustomize
+        
+    # Deploy the Docker image to the GKE cluster
+    - name: Deploy
+      run: |
+        gcloud container clusters get-credentials $GKE_CLUSTER --zone $GKE_ZONE --project $GKE_PROJECT
+        ./kustomize edit set image $REPO:latest
+        ./kustomize build . | kubectl apply -f -
+        kubectl rollout status
+        kubectl get services -o wide
+    
+      
+    
+    
+        
+        
 
