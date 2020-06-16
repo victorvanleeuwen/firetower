@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - 'master'
+    paths:
+      - "monitoring_service/**"
+
+
+
 # Environment variables available to all jobs and steps in this workflow
 jobs:
 

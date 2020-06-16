@@ -3,7 +3,9 @@ name: build and publish generator image
 on:
   push:
     branches:
-      - 'temp_test'
+      - 'master'
+    paths:
+      - "data_generator/**"
 
 jobs:
      
