@@ -70,6 +70,7 @@ public class UserController {
     @RequestMapping(value = RestURIConstant.delete, method = RequestMethod.DELETE)
     public void deleteUser(@RequestParam("id") Long id){
         service.deleteUser(id);
+
     }
 
     @RequestMapping(value= RestURIConstant.register, method = RequestMethod.POST)

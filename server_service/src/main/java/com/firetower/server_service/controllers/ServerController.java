@@ -60,5 +60,6 @@ public class ServerController {
     @RequestMapping(value = RestUriConstant.delete, method = RequestMethod.DELETE)
     public void deleteServers(@RequestParam("id") Long id){
        serverService.deleteServerWithServerId(id);
+
     }
 }
