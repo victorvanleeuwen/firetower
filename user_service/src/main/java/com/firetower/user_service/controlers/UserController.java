@@ -68,12 +68,12 @@ public class UserController {
              return service.generateUsers(amount);
     }
     @RequestMapping(value = RestURIConstant.delete, method = RequestMethod.DELETE)
-    public String deleteUser(@RequestParam("id") Long id){
-       return  service.deleteUser(id);
+    public void deleteUser(@RequestParam("id") Long id){
+        service.deleteUser(id);
     }
 
     @RequestMapping(value= RestURIConstant.register, method = RequestMethod.POST)
-    public String register(@RequestBody RegisterDTO user){
-       return service.register(user);
+    public void register(@RequestBody RegisterDTO user){
+       service.register(user);
     }
 }
