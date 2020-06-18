@@ -53,7 +53,15 @@ jobs:
         with:
           name: jarpack
         
-        
+      - name: Setup sonar scanner
+        uses: warchant/setup-sonar-scanner@v1
+      - name: run scan
+        run: sonar-scanner
+          -Dsonar.host.url=http://sonarqube.basvdeertwegh.nl
+          -Dsonar.projectKey=firetower-user
+          -Dsonar.sources=./server_service/src/main/java
+          -Dsonar.java.binaries=./server_servicer/target
+
         
       - name: Build Docker image
         run: docker build . -t $REPO:latest -t $REPO:${GITHUB_SHA::8} -f ./server_service/Dockerfile
