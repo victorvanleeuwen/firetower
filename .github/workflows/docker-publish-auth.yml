@@ -37,7 +37,7 @@ jobs:
           -Dsonar.host.url=http://sonarqube.basvdeertwegh.nl
           -Dsonar.projectKey=firetower-auth
           -Dsonar.sources=./auth_service/src/main/java
-          -Dsonar.java.binaries=./auth_service/
+          -Dsonar.java.binaries=./auth_service/target
 
         
   docker:
