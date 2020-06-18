@@ -30,6 +30,15 @@ jobs:
           name: jarpack
           path: ./log_service/target/log-service.jar
 
+
+      - name: Setup sonar scanner
+        uses: warchant/setup-sonar-scanner@v1
+      - name: run scan
+        run: sonar-scanner
+          -Dsonar.host.url=http://sonarqube.basvdeertwegh.nl
+          -Dsonar.projectKey=firetower-log
+          -Dsonar.sources=./log_service//src/main/java
+          -Dsonar.java.binaries=./log_service/target
         
   docker:
     name: Publish - Docker Hub
