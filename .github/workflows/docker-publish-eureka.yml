@@ -37,7 +37,7 @@ jobs:
           -Dsonar.host.url=http://sonarqube.basvdeertwegh.nl
           -Dsonar.projectKey=firetower-eureka
           -Dsonar.sources=./eureka_server/src/main/java
-          -Dsonar.java.binaries=./eureka_server
+          -Dsonar.java.binaries=./eureka_server/target
 
 
   docker:
