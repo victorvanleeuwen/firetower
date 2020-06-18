@@ -37,7 +37,7 @@ jobs:
           -Dsonar.host.url=http://sonarqube.basvdeertwegh.nl
           -Dsonar.projectKey=firetower-alert
           -Dsonar.sources=./alert_service/src/main/java
-          -Dsonar.java.binaries=./alert_service/
+          -Dsonar.java.binaries=./alert_service/target
     
         
   docker:
