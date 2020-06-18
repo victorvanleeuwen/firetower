@@ -30,7 +30,15 @@ jobs:
           name: jarpack
           path: ./data_generator/target/generator-service.jar
 
-        
+      - name: Setup sonar scanner
+        uses: warchant/setup-sonar-scanner@v1
+      - name: run scan
+        run: sonar-scanner
+          -Dsonar.host.url=http://sonarqube.basvdeertwegh.nl
+          -Dsonar.projectKey=firetower-generator
+          -Dsonar.sources=./data_generator/src/main/java
+          -Dsonar.java.binaries=./data_generator/target
+
   docker:
     name: Publish - Docker Hub
     runs-on: ubuntu-18.04
