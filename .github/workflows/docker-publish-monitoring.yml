@@ -34,6 +34,15 @@ jobs:
           path: ./monitoring_service/target/monitoring-service.jar
 
 
+      - name: Setup sonar scanner
+        uses: warchant/setup-sonar-scanner@v1
+      - name: run scan
+        run: sonar-scanner
+          -Dsonar.host.url=http://sonarqube.basvdeertwegh.nl
+          -Dsonar.projectKey=firetower-monitoring
+          -Dsonar.sources=./monitoring_service/src/main/java
+          -Dsonar.java.binaries=./monitoring_service/target
+
   docker:
     name: Publish - Docker Hub
     runs-on: ubuntu-18.04
