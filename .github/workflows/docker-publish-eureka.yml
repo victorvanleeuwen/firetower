@@ -30,7 +30,16 @@ jobs:
           name: jarpack
           path: ./eureka_server/target/eureka-service.jar
 
-        
+      - name: Setup sonar scanner
+        uses: warchant/setup-sonar-scanner@v1
+      - name: run scan
+        run: sonar-scanner
+          -Dsonar.host.url=http://sonarqube.basvdeertwegh.nl
+          -Dsonar.projectKey=firetower-eureka
+          -Dsonar.sources=./eureka_server/src/main/java
+          -Dsonar.java.binaries=./eureka_server
+
+
   docker:
     name: Publish - Docker Hub
     runs-on: ubuntu-18.04
