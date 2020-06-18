@@ -30,6 +30,15 @@ jobs:
           name: jarpack
           path: ./user_service/target/user-service.jar
 
+      - name: Setup sonar scanner
+        uses: warchant/setup-sonar-scanner@v1
+      - name: run scan
+        run: sonar-scanner
+          -Dsonar.host.url=http://sonarqube.basvdeertwegh.nl
+          -Dsonar.projectKey=firetower-user
+          -Dsonar.sources=./user_service/src/main/java
+          -Dsonar.java.binaries=./user_service/target
+
         
   docker:
     name: Publish - Docker Hub
