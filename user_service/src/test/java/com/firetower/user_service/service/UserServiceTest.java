@@ -62,6 +62,8 @@ public class UserServiceTest {
     @Test
     public void getUserDTOTest(){
 
+        
+        
         User target = new User("Piet","Piet@gmail.com",new AuthenticationUtils().encode("testing"),false,false,false,false,USER.getGrantedAuthorities());
         target = repo.save(target);
 
